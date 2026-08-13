@@ -3,7 +3,8 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "THANKS",
-  description: "MIRASISONEへのお問い合わせありがとうございます。内容を確認のうえ、担当者よりご連絡いたします。",
+  description:
+    "お問い合わせありがとうございます。内容を拝見し、2営業日以内にご連絡いたします。",
   alternates: {
     canonical: "/thanks",
   },
@@ -27,13 +28,16 @@ export default function ThanksPage() {
           <span />
         </div>
         <p className="thanks-lead">
-          内容を確認のうえ、担当者よりご連絡いたします。
+          あなたの空間に、まだ誰も見たことのない光を灯す準備が始まりました。
           <br />
-          通常、2〜3営業日以内に返信いたします。
+          いただいたメッセージは、私たちのスクリーンにしっかり投影されました。
         </p>
         <p className="thanks-copy">
-          入力いただいたメールアドレス宛に返信いたします。数日経っても連絡がない場合は、
-          お手数ですが <span>info@mirasisone.co.jp</span> までご連絡ください。
+          内容を拝見し、2営業日以内にご連絡いたします。
+          <br />
+          どんな空間が、どんな物語を待っているのか、
+          <br />
+          私たちも今からワクワクしています。
         </p>
         <div className="thanks-actions">
           <Link className="thanks-primary" href="/">

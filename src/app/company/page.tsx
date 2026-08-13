@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     "プロジェクションマッピングや3DCG制作を手掛けるMIRASISONEの会社概要、ミッション、ビジョン、バリューを紹介します。",
   alternates: {
     canonical: "/company",
-  },
+  },h
   openGraph: {
     title: "COMPANY | MIRASISONE",
     description:
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 const companyRows = [
   ["屋号", "MIRASISONE"],
   ["代表", "山田 晃平"],
-  ["所在地", "〒107-0061 東京都港区北青山一丁目3番1号 アールキューブ青山3階"],
+  ["本社", "〒112-0006 東京都文京区小日向３丁目１番８号ヴィラホワイト２Ｆ"],  ["渋谷オフィス", "〒150-0041 東京都渋谷区神南一丁目23番14号 リージャス渋谷公園通りセンター207号室"],
   ["お問い合わせ", "info@mirasisone.co.jp"],
   [
     "事業内容",

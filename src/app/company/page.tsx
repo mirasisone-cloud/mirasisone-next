@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     "プロジェクションマッピングや3DCG制作を手掛けるMIRASISONEの会社概要、ミッション、ビジョン、バリューを紹介します。",
   alternates: {
     canonical: "/company",
-  },h
+  },
   openGraph: {
     title: "COMPANY | MIRASISONE",
     description:

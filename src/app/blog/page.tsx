@@ -18,15 +18,40 @@ export const metadata: Metadata = {
   },
 };
 
-export default function BlogPage() {
-  const visiblePosts = blogPosts;
+type Props = {
+  searchParams: Promise<{ category?: string }>;
+};
+
+export default async function BlogPage({ searchParams }: Props) {
+  const { category } = await searchParams;
+
+  const visiblePosts =
+    category && category !== "All Posts"
+      ? blogPosts.filter(
+          (post) =>
+            post.category === category ||
+            (post.categories && post.categories.includes(category))
+        )
+      : blogPosts;
 
   return (
     <main className="wix-blog-page" id="top">
       <nav className="wix-blog-nav" aria-label="Blog categories">
-        {blogNavCategories.map((category) => (
-          <Link href="/blog" key={category}>
-            {category}
+        {blogNavCategories.map((cat) => (
+          <Link
+            href={
+              cat === "All Posts"
+                ? "/blog"
+                : `/blog?category=${encodeURIComponent(cat)}`
+            }
+            key={cat}
+            className={
+              (!category && cat === "All Posts") || category === cat
+                ? "active"
+                : undefined
+            }
+          >
+            {cat}
           </Link>
         ))}
       </nav>
@@ -44,7 +69,10 @@ export default function BlogPage() {
                   ⋮
                 </button>
               </div>
-              <Link className="wix-post-category" href="/blog">
+              <Link
+                  className="wix-post-category"
+                  href={`/blog?category=${encodeURIComponent(post.category)}`}
+                >
                 {post.category}
               </Link>
               <Link className="wix-post-title" href={`/post/${encodeURIComponent(post.slug)}`}>

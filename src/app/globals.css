@@ -513,7 +513,7 @@ body {
   text-decoration: none;
 }
 
-.wix-blog-nav a:first-child {
+.wix-blog-nav a.active {
   color: #5e79e6;
 }
 

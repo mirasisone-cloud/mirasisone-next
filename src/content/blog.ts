@@ -6,7 +6,8 @@ export type BlogBlock =
   | { type: "list"; items: string[] }
   | { type: "table"; rows: string[][] }
   | { type: "image"; src: string; alt: string }
-  | { type: "quote"; text: string };
+  | { type: "quote"; text: string }
+  | { type: "youtube"; url: string };
 
 export type BlogPost = {
   slug: string;

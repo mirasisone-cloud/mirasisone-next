@@ -684,11 +684,11 @@ body {
 }
 
 .wix-article-body p {
-  margin: 0;
-  color: #263f86;
+  margin: 0 0 32px;
+  color: #263f66;
   font-size: 17px;
   font-weight: 400;
-  line-height: 2.05;
+  line-height: 1.9;
 }
 
 .wix-related {

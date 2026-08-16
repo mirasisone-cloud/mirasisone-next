@@ -76,7 +76,41 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             if (block.type === "p") {
               return <p key={index}>{block.text}</p>;
             }
-            if (block.type === "list") {
+            if (block.type === "youtube") {
+  const videoId =
+    block.url.includes("youtu.be/")
+      ? block.url.split("youtu.be/")[1]?.split("?")[0]
+      : block.url.split("v=")[1]?.split("&")[0];
+
+  if (!videoId) return null;
+
+  return (
+    <div
+      key={index}
+      style={{
+        position: "relative",
+        width: "100%",
+        paddingTop: "56.25%",
+        margin: "32px 0",
+      }}
+    >
+      <iframe
+        src={`https://www.youtube.com/embed/${videoId}`}
+        title="YouTube video"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          border: 0,
+        }}
+      />
+    </div>
+  );
+}if (block.type === "list") {
               return (
                 <ul key={index}>
                   {block.items.map((item, itemIndex) => (

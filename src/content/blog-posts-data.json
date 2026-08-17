@@ -11261,13 +11261,8 @@
         ],
         "publishedAt": "2025-12-01",
         "revisedAt": "2025-12-01",
-        "eyecatch": "https://static.wixstatic.com/media/abf8a7_c447cd2f4bc54f418e7aa6e2d9ca1b9b~mv2.png/v1/fill/w_1000,h_523,al_c,q_90,usm_0.66_1.00_0.01/abf8a7_c447cd2f4bc54f418e7aa6e2d9ca1b9b~mv2.png",
+        "eyecatch": "public/ai-era-human-crafted-video-value.png",
         "content": [
-            {
-                "type": "image",
-                "src": "abf8a7_c447cd2f4bc54f418e7aa6e2d9ca1b9b~mv2.png",
-                "alt": ""
-            },
             {
                 "type": "p",
                 "text": "AIで映像が生成できる時代になり、"

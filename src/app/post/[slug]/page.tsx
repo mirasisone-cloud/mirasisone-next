@@ -147,9 +147,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               );
             }
             if (block.type === "image") {
-              const imageSrc = block.src.startsWith("http")
-                ? block.src
-                : `https://static.wixstatic.com/media/${block.src}`;
+             const imageSrc =
+  block.src.startsWith("http") || block.src.startsWith("/")
+    ? block.src
+    : `https://static.wixstatic.com/media/${block.src}`;
               return (
                 <div className="wix-article-inline-image" key={index}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}

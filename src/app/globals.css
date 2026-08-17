@@ -550,7 +550,7 @@ body {
 }
 
 .wix-post-image img {
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .wix-post-body {

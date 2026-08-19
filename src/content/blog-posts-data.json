@@ -23,6 +23,11 @@
   "publishedAt": "2026-08-19",
   "revisedAt": "2026-08-19",
   "eyecatch": "/images/blog/table-projection-mapping-guide.png",
+  "relatedPosts": [
+  "restaurant-spatial-design-sns-strategy",
+  "3dcg-character-projection-mapping-guide",
+  "case-study-whitely-table-projection-mapping"
+],
   "content": [
     {
       "type": "p",
@@ -196,27 +201,6 @@
       "type": "p",
       "text": "「自分の店舗でもできるか知りたい」「まず概算だけ聞きたい」——お気軽にご相談ください。"
     },
-    {
-      "type": "p",
-      "text": "お問い合わせ・ご相談：https://www.mirasisone.com"
-    },
-    {
-      "type": "p",
-      "text": "メール：japan-team@mirasisone.com"
-    },
-    {
-      "type": "heading",
-      "level": 2,
-      "text": "関連記事"
-    },
-    {
-      "type": "list",
-      "items": [
-        "飲食店の空間演出で予約が埋まる理由｜プロジェクションマッピング×SNS拡散の設計術 /blog/restaurant-spatial-design-sns-strategy",
-        "3DCGキャラクター×プロジェクションマッピング｜オリジナルキャラクターで空間を演出する方法 /blog/3dcg-character-projection-mapping-guide",
-        "【制作実績】渋谷「Whitely 小人シェフ」｜MIRASISONEが手がけたテーブルプロジェクションマッピング /blog/case-study-whitely-table-projection-mapping"
-      ]
-    }
   ]
 },
     {

@@ -20,6 +20,7 @@ export type BlogPost = {
   revisedAt: string;
   eyecatch: string;
   content: readonly BlogBlock[];
+  relatedPosts?: string[];
 };
 
 export const blogNavCategories = [

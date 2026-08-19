@@ -48,7 +48,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     notFound();
   }
 
-  const related = blogPosts.filter((item) => item.slug !== post.slug).slice(0, 3);
+  const related =
+  post.relatedPosts && post.relatedPosts.length > 0
+    ? post.relatedPosts
+        .map((slug) => blogPosts.find((item) => item.slug === slug))
+        .filter((item): item is (typeof blogPosts)[number] => Boolean(item))
+    : blogPosts.filter((item) => item.slug !== post.slug).slice(0, 3);
 
   return (
     <main className="wix-blog-page">

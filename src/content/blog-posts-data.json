@@ -20,17 +20,15 @@
     "Whitely",
     "MIRASISONE"
   ],
-  "publishedAt": "2026-08-19",
+    "publishedAt": "2026-08-19",
   "revisedAt": "2026-08-19",
   "eyecatch": "/images/blog/table-projection-mapping-guide.png",
-   ],      
   "relatedPosts": [
-  "restaurant-spatial-design-sns-strategy",
-  "3dcg-character-projection-mapping-guide",
-  "case-study-whitely-table-projection-mapping"
-　　],
+    "restaurant-spatial-design-sns-strategy",
+    "3dcg-character-projection-mapping-guide",
+    "case-study-whitely-table-projection-mapping"
+  ],
   "content": [
-    {
       "type": "p",
       "text": "「テーブルの上に映像が出てくるあの演出、どうやってるの？」"
     },

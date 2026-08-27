@@ -9,7 +9,7 @@ const APEX_HOST = "mirasisone.com";
 const WIX_ORIGIN = "https://www.mirasisone.com";
 
 // このアプリで配信するパス
-const APP_PATHS = ["/contact", "/thanks", "/api/contact"];
+const APP_PATHS = ["/contact", "/thanks", "/blog", "/post", "/api/contact"];
 
 function isAppPath(pathname: string) {
   return APP_PATHS.some((p) => pathname === p || pathname.startsWith(`${p}/`));

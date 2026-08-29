@@ -5,7 +5,7 @@
   "description": "東京で体験できるプロジェクションマッピングスポット（都庁PM・Whitely・チームラボ）と、東京で制作を依頼する際の選び方・費用感を完全ガイド。",
   "publishedAt": "2026-08-29",
   "category": "プロジェクションマッピング",
-  "eyecatch": "/images/blog/projection-mapping-tokyo-2026-guide.PNG",
+  "eyecatch": "/images/blog/projection-mapping-tokyo-2026-guide.png",
   "tags": [
     "プロジェクションマッピング",
     "東京",
@@ -31,7 +31,7 @@
     },
     {
       "type": "image",
-      "src": "/images/blog/projection-mapping-tokyo-2026-guide-01.jpg",
+      "src": "/images/blog/projection-mapping-tokyo-2026-guide-01.png",
       "alt": "東京の夜景とプロジェクションマッピング｜都庁・渋谷・デジタルアートなど体験スポットのイメージ"
     },
     {
@@ -149,7 +149,7 @@
     },
     {
       "type": "image",
-      "src": "/images/blog/projection-mapping-tokyo-2026-guide-02.jpg",
+      "src": "/images/blog/projection-mapping-tokyo-2026-guide-02.png",
       "alt": "東京のプロジェクションマッピング制作会社選びのチェックポイント"
     },
     {

@@ -9,7 +9,6 @@ type ContactPayload = {
   location?: string;
   name?: string;
   kana?: string;
-  tel?: string;
   email?: string;
 };
 
@@ -47,7 +46,6 @@ function buildMessage(payload: ContactPayload) {
     ["実施場所", value(payload, "location") || "未入力"],
     ["お名前", value(payload, "name")],
     ["ふりがな", value(payload, "kana")],
-    ["電話番号", value(payload, "tel") || "未入力"],
     ["メールアドレス", value(payload, "email")],
   ];
 

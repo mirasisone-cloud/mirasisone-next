@@ -1,6 +1,29 @@
+import type { Metadata } from "next";
 import { StaticHtmlPage } from "@/components/StaticHtmlPage";
 import { topPage } from "@/content/top";
 import { blogPosts } from "@/content/blog";
+import { WIX_ORIGIN } from "@/content/site";
+
+const TOP_TITLE = "プロジェクションマッピング・空間演出の企画制作｜MIRASISONE（東京）";
+const TOP_DESCRIPTION =
+  "MIRASISONEは東京のプロジェクションマッピング・空間演出の企画制作会社です。店舗・ホテル・商業施設・イベントの空間を、企画から3DCG映像制作・機材設置まで一貫して手がけます。";
+
+export const metadata: Metadata = {
+  // 社名だけだと何の会社か伝わらないため、template（"%s | MIRASISONE"）を使わず全文を指定する
+  title: { absolute: TOP_TITLE },
+  description: TOP_DESCRIPTION,
+  alternates: {
+    // 本番の TOP は Wix(www) が配信している（src/content/site.ts 参照）
+    canonical: WIX_ORIGIN,
+  },
+  openGraph: {
+    title: TOP_TITLE,
+    description: TOP_DESCRIPTION,
+    url: WIX_ORIGIN,
+    type: "website",
+    images: [{ url: "/top-hero-pm-poster.webp" }],
+  },
+};
 
 const NEWS_COUNT = 3;
 
@@ -45,6 +68,7 @@ function withLatestNews(body: string) {
 }
 
 export default function HomePage() {
-  const page = { ...topPage, body: withLatestNews(topPage.body) };
+  // StaticHtmlPage は表示後に document.title を page.title で上書きするため、metadata と同じタイトルを渡す
+  const page = { ...topPage, title: TOP_TITLE, body: withLatestNews(topPage.body) };
   return <StaticHtmlPage page={page} contactLinks />;
 }

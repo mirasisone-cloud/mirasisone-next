@@ -2,19 +2,21 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { blogNavCategories, blogPosts } from "@/content/blog";
+import { appUrl } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "TOPICS・NEWS",
   description:
     "MIRASISONEのブログ記事一覧です。プロジェクションマッピング、3D映像制作、デジタルサイネージ、空間演出に関する記事を掲載しています。",
   alternates: {
-    canonical: "/blog",
+    // www 側は Wix の別ブログなので、apex の絶対URLを正規URLにする
+    canonical: appUrl("/blog"),
   },
   openGraph: {
     title: "TOPICS・NEWS | MIRASISONE",
     description:
       "MIRASISONEのブログ記事一覧です。プロジェクションマッピング、3D映像制作、デジタルサイネージ、空間演出に関する記事を掲載しています。",
-    url: "/blog",
+    url: appUrl("/blog"),
   },
 };
 
@@ -36,6 +38,11 @@ export default async function BlogPage({ searchParams }: Props) {
 
   return (
     <main className="wix-blog-page" id="top">
+      <header className="wix-blog-head">
+        <p className="wix-blog-kicker">TOPICS・NEWS</p>
+        <h1>プロジェクションマッピング・空間演出のお役立ち記事</h1>
+      </header>
+
       <nav className="wix-blog-nav" aria-label="Blog categories">
         {blogNavCategories.map((cat) => (
           <Link

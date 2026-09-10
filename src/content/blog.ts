@@ -9,6 +9,23 @@ export type BlogBlock =
   | { type: "quote"; text: string }
   | { type: "youtube"; url: string };
 
+/** blog-posts-data.json は手作業で更新されるため、表記ゆれや軽微な誤りでページが落ちないよう正規化する */
+type RawBlock = Partial<Record<string, unknown>> & { type?: string };
+
+/** YouTube ブロックは url / src どちらのキーでも受け付ける */
+function normalizeBlock(block: RawBlock): RawBlock {
+  if (block.type !== "youtube") return block;
+  const url = block.url ?? block.src;
+  return { type: "youtube", url: typeof url === "string" ? url : "" };
+}
+
+/** 画像パスは先頭スラッシュ必須（next/image が相対パスを受け付けないため） */
+function normalizeImagePath(value: unknown) {
+  if (typeof value !== "string" || value.length === 0) return "";
+  if (/^(https?:)?\/\//.test(value) || value.startsWith("/")) return value;
+  return `/${value}`;
+}
+
 export type BlogPost = {
   slug: string;
   title: string;
@@ -32,7 +49,17 @@ export const blogNavCategories = [
   "VR/ARコンテンツ",
 ];
 
-export const blogPosts = postsData as unknown as BlogPost[];
+export const blogPosts = (postsData as unknown as BlogPost[]).map((post) => ({
+  ...post,
+  eyecatch: normalizeImagePath(post.eyecatch),
+  content: (post.content as unknown as RawBlock[]).map((block) => {
+    const normalized = normalizeBlock(block);
+    if (normalized.type === "image") {
+      return { ...normalized, src: normalizeImagePath(normalized.src) };
+    }
+    return normalized;
+  }),
+})) as unknown as BlogPost[];
 
 export const blogCategories = Array.from(
   new Set(blogPosts.map((post) => post.category))

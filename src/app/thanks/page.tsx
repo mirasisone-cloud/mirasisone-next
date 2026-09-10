@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { appUrl } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "THANKS",
   description:
     "お問い合わせありがとうございます。内容を拝見し、2営業日以内にご連絡いたします。",
   alternates: {
-    canonical: "/thanks",
+    canonical: appUrl("/thanks"),
   },
   robots: {
     index: false,

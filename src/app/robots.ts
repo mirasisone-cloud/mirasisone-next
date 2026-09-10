@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { APP_ORIGIN } from "@/content/site";
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -13,6 +14,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: "/",
       },
     ],
-    sitemap: "https://www.mirasisone.com/sitemap.xml",
+    // sitemap.xml を配信しているのはこのアプリ（apex）。www は Wix の別 sitemap
+    sitemap: `${APP_ORIGIN}/sitemap.xml`,
   };
 }

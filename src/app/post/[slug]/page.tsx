@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { blogPosts, getBlogPost } from "@/content/blog";
+import { appUrl, WIX_ORIGIN } from "@/content/site";
 
 type BlogPostPageProps = {
   params: Promise<{
@@ -11,6 +12,22 @@ type BlogPostPageProps = {
 };
 
 export const dynamicParams = true;
+
+/** youtu.be/ID・watch?v=ID・/embed/ID・/shorts/ID のいずれからも動画IDを取り出す */
+function extractYouTubeId(url: string | undefined) {
+  if (!url) return null;
+  const patterns = [
+    /youtu\.be\/([\w-]{6,})/,
+    /[?&]v=([\w-]{6,})/,
+    /\/embed\/([\w-]{6,})/,
+    /\/shorts\/([\w-]{6,})/,
+  ];
+  for (const pattern of patterns) {
+    const match = url.match(pattern);
+    if (match) return match[1];
+  }
+  return null;
+}
 
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
   const { slug } = await params;
@@ -22,16 +39,20 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     };
   }
 
+  const path = `/post/${encodeURIComponent(slug)}`;
+
   return {
-    title: `${post.title} | MIRASISONE`,
+    // "| MIRASISONE" は layout.tsx の title.template が付けるので、ここでは付けない
+    title: post.title,
     description: post.description,
     alternates: {
-      canonical: `/post/${encodeURIComponent(slug)}`,
+      // www 側に /post/* は存在しない（404）ため apex の絶対URLを正規URLにする
+      canonical: appUrl(path),
     },
     openGraph: {
       title: `${post.title} | MIRASISONE`,
       description: post.description,
-      url: `/post/${encodeURIComponent(slug)}`,
+      url: appUrl(path),
       type: "article",
       publishedTime: post.publishedAt,
       modifiedTime: post.revisedAt,
@@ -55,8 +76,41 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         .filter((item): item is (typeof blogPosts)[number] => Boolean(item))
     : blogPosts.filter((item) => item.slug !== post.slug).slice(0, 3);
 
+  const articleUrl = appUrl(`/post/${encodeURIComponent(slug)}`);
+
+  // 構造化データ。FAQPage は一般サイトではリッチリザルト対象外のため入れない
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      headline: post.title,
+      description: post.description,
+      image: [appUrl(post.eyecatch)],
+      datePublished: post.publishedAt,
+      dateModified: post.revisedAt || post.publishedAt,
+      author: { "@type": "Organization", name: "MIRASISONE", url: WIX_ORIGIN },
+      publisher: { "@type": "Organization", name: "MIRASISONE", url: WIX_ORIGIN },
+      mainEntityOfPage: { "@type": "WebPage", "@id": articleUrl },
+      articleSection: post.category,
+      inLanguage: "ja",
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "ホーム", item: WIX_ORIGIN },
+        { "@type": "ListItem", position: 2, name: "TOPICS・NEWS", item: appUrl("/blog") },
+        { "@type": "ListItem", position: 3, name: post.title, item: articleUrl },
+      ],
+    },
+  ];
+
   return (
     <main className="wix-blog-page">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <article className="wix-article">
         <Link className="wix-article-back" href="/blog">
           All Posts
@@ -82,10 +136,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               return <p key={index}>{block.text}</p>;
             }
             if (block.type === "youtube") {
-  const videoId =
-    block.url.includes("youtu.be/")
-      ? block.url.split("youtu.be/")[1]?.split("?")[0]
-      : block.url.split("v=")[1]?.split("&")[0];
+  const videoId = extractYouTubeId(block.url);
 
   if (!videoId) return null;
 

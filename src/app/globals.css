@@ -491,6 +491,30 @@ body {
   background: rgba(255, 255, 255, 0.58);
 }
 
+.wix-blog-head {
+  width: min(1180px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 56px 0 0;
+}
+
+.wix-blog-kicker {
+  margin: 0 0 10px;
+  color: #5e79e6;
+  font-family: "Oswald", "Noto Sans JP", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+}
+
+.wix-blog-head h1 {
+  margin: 0;
+  color: #233f86;
+  font-family: "Noto Serif JP", serif;
+  font-size: clamp(22px, 3.4vw, 34px);
+  font-weight: 700;
+  line-height: 1.45;
+}
+
 .wix-blog-nav {
   display: flex;
   align-items: center;
@@ -1224,6 +1248,11 @@ body {
     flex-direction: column;
   }
 
+  .wix-blog-head {
+    width: calc(100% - 32px);
+    padding-top: 32px;
+  }
+
   .wix-blog-nav {
     overflow-x: auto;
     gap: 24px;
@@ -1243,11 +1272,16 @@ body {
   }
 
   .wix-post-card {
-    grid-template-columns: 1fr;
+    /* minmax(0, 1fr) にしないと、aspect-ratio を持つ画像セルの min-content 幅が
+       列幅の下限になり、カードが画面幅（375px）を超えて横スクロールが発生する */
+    grid-template-columns: minmax(0, 1fr);
+    min-height: auto;
   }
 
   .wix-post-image {
     min-height: auto;
+    width: 100%;
+    min-width: 0;
     aspect-ratio: 16 / 9;
   }
 

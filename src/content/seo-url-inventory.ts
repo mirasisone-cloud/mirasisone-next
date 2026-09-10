@@ -699,5 +699,13 @@ export const seoUrlInventory = [
     "path": "/blog/categories/%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3%E3%83%9E%E3%83%83%E3%83%94%E3%83%B3%E3%82%B0",
     "action": "keep-200",
     "lastmod": "2026-07-30"
+  },
+  {
+    // 2026-07-31 の棚卸し後に Wix で公開された記事。www 側で 200 を確認済み
+    "type": "blog-post",
+    "oldPath": "/post/autumn-winter-event-projection-mapping-guide",
+    "path": "/post/autumn-winter-event-projection-mapping-guide",
+    "action": "keep-200",
+    "lastmod": "2026-08-03"
   }
 ] as const satisfies readonly SeoUrlEntry[];

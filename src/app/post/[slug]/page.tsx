@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { blogPosts, getBlogPost } from "@/content/blog";
-import { appUrl, WIX_ORIGIN } from "@/content/site";
+import { appUrl, postCanonicalUrl, WIX_ORIGIN } from "@/content/site";
 
 type BlogPostPageProps = {
   params: Promise<{
@@ -39,20 +39,20 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     };
   }
 
-  const path = `/post/${encodeURIComponent(slug)}`;
+  // Wix にもある記事は www、apex にしか無い記事は apex（ルールは site.ts 参照）
+  const canonicalUrl = postCanonicalUrl(slug);
 
   return {
     // "| MIRASISONE" は layout.tsx の title.template が付けるので、ここでは付けない
     title: post.title,
     description: post.description,
     alternates: {
-      // www 側に /post/* は存在しない（404）ため apex の絶対URLを正規URLにする
-      canonical: appUrl(path),
+      canonical: canonicalUrl,
     },
     openGraph: {
       title: `${post.title} | MIRASISONE`,
       description: post.description,
-      url: appUrl(path),
+      url: canonicalUrl,
       type: "article",
       publishedTime: post.publishedAt,
       modifiedTime: post.revisedAt,
@@ -76,7 +76,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         .filter((item): item is (typeof blogPosts)[number] => Boolean(item))
     : blogPosts.filter((item) => item.slug !== post.slug).slice(0, 3);
 
-  const articleUrl = appUrl(`/post/${encodeURIComponent(slug)}`);
+  const articleUrl = postCanonicalUrl(slug);
 
   // 構造化データ。FAQPage は一般サイトではリッチリザルト対象外のため入れない
   const jsonLd = [

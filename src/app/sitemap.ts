@@ -1,32 +1,23 @@
 import type { MetadataRoute } from "next";
-import { seoUrlInventory } from "@/content/seo-url-inventory";
 import { blogPosts } from "@/content/blog";
-import { APP_ORIGIN, WIX_ORIGIN } from "@/content/site";
+import { APP_ORIGIN, isWixPost } from "@/content/site";
 
-/** Wix(www) が配信する固定ページ。ここに載るパスだけ www の URL で出力する */
-const wixServedPaths = new Set(["/", "/works", "/company", "/recruit", "/privacy-policy"]);
-
+/**
+ * apex(このアプリ)が正規URLになっているページだけを載せる。
+ * TOP などの固定ページと、Wix にもある旧記事は www が正規URLで、
+ * Wix 側の sitemap（https://www.mirasisone.com/sitemap.xml）に載っている。
+ */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const fixedPages = seoUrlInventory
-    .filter((entry) => entry.type === "pages")
-    .filter((entry) => wixServedPaths.has(entry.path))
-    .map((entry) => ({
-      url: `${WIX_ORIGIN}${entry.path === "/" ? "" : entry.path}`,
-      lastModified: new Date(entry.lastmod || "2026-07-31"),
+  const postPages = blogPosts
+    .filter((post) => !isWixPost(post.slug))
+    .map((post) => ({
+      url: `${APP_ORIGIN}/post/${encodeURIComponent(post.slug)}`,
+      lastModified: new Date(post.revisedAt || post.publishedAt || "2026-07-31"),
       changeFrequency: "monthly" as const,
-      priority: entry.path === "/" ? 1 : 0.9,
+      priority: 0.8,
     }));
 
-  // 以下は apex がこのアプリで配信する（www 側には存在しない or 別ページ）
-  const postPages = blogPosts.map((post) => ({
-    url: `${APP_ORIGIN}/post/${encodeURIComponent(post.slug)}`,
-    lastModified: new Date(post.revisedAt || post.publishedAt || "2026-07-31"),
-    changeFrequency: "monthly" as const,
-    priority: 0.8,
-  }));
-
   return [
-    ...fixedPages,
     {
       url: `${APP_ORIGIN}/blog`,
       lastModified: new Date("2026-07-31"),

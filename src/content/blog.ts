@@ -19,10 +19,16 @@ function normalizeBlock(block: RawBlock): RawBlock {
   return { type: "youtube", url: typeof url === "string" ? url : "" };
 }
 
-/** 画像パスは先頭スラッシュ必須（next/image が相対パスを受け付けないため） */
-function normalizeImagePath(value: unknown) {
+/**
+ * アイキャッチは next/image に渡すため、先頭スラッシュ付きのパスか絶対URLにそろえる。
+ * - "abf8a7_xxx~mv2.png" のようにスラッシュを含まない値は Wix のメディア ID とみなす
+ *   （本文の image ブロックと同じ扱い。本文側は page.tsx が wixstatic に解決する）
+ * - "images/blog/x.png" のようにスラッシュを含む相対パスは先頭に "/" を補う
+ */
+function normalizeEyecatch(value: unknown) {
   if (typeof value !== "string" || value.length === 0) return "";
   if (/^(https?:)?\/\//.test(value) || value.startsWith("/")) return value;
+  if (!value.includes("/")) return `https://static.wixstatic.com/media/${value}`;
   return `/${value}`;
 }
 
@@ -51,14 +57,9 @@ export const blogNavCategories = [
 
 export const blogPosts = (postsData as unknown as BlogPost[]).map((post) => ({
   ...post,
-  eyecatch: normalizeImagePath(post.eyecatch),
-  content: (post.content as unknown as RawBlock[]).map((block) => {
-    const normalized = normalizeBlock(block);
-    if (normalized.type === "image") {
-      return { ...normalized, src: normalizeImagePath(normalized.src) };
-    }
-    return normalized;
-  }),
+  eyecatch: normalizeEyecatch(post.eyecatch),
+  // 本文の image ブロックは加工しない（Wix メディア ID のままにして page.tsx で解決する）
+  content: (post.content as unknown as RawBlock[]).map(normalizeBlock),
 })) as unknown as BlogPost[];
 
 export const blogCategories = Array.from(

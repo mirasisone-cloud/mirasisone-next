@@ -319,6 +319,8 @@ body {
   background: #ffffff;
   color: #263f86;
   font-family: "Noto Sans JP", sans-serif;
+  /* 記事説明や本文の長いURL（例: Instagram のURL）は改行できず、スマホでページ幅を広げてしまう */
+  overflow-wrap: anywhere;
 }
 
 .thanks-page {
@@ -1253,12 +1255,12 @@ body {
     padding-top: 32px;
   }
 
+  /* 横スクロールだと一部のカテゴリーが画面外に隠れるため、折り返してすべて見せる */
   .wix-blog-nav {
-    overflow-x: auto;
-    gap: 24px;
-    width: 100%;
-    padding: 24px 24px 36px;
-    white-space: nowrap;
+    flex-wrap: wrap;
+    gap: 10px 20px;
+    width: calc(100% - 32px);
+    padding: 20px 0 32px;
   }
 
   .wix-blog-nav a,

@@ -27,6 +27,19 @@ const requiredFields: Array<keyof ContactPayload> = [
 
 /** 会社の受信先。環境変数 CONTACT_TO_EMAIL が未設定でも正しい宛先に届くようにする */
 const FALLBACK_TO_EMAIL = "company@mirasisone.com";
+
+/**
+ * 通知の宛先。CONTACT_TO_EMAIL はカンマ区切りで複数指定できる。
+ * Resend は複数宛先を配列で受け取る仕様のため、ここで配列に分解する
+ * （company@ が迷惑メールに振り分けられても気づけるよう、Gmail にも同時に送る運用）。
+ */
+function notificationRecipients() {
+  const list = (process.env.CONTACT_TO_EMAIL ?? FALLBACK_TO_EMAIL)
+    .split(",")
+    .map((address) => address.trim())
+    .filter(Boolean);
+  return list.length > 0 ? list : [FALLBACK_TO_EMAIL];
+}
 /** 1項目あたりの最大文字数（極端に長い投稿を弾く） */
 const MAX_FIELD_LENGTH = 5000;
 
@@ -147,7 +160,7 @@ ${FALLBACK_TO_EMAIL}
 type SendArgs = {
   apiKey: string;
   from: string;
-  to: string;
+  to: string | string[];
   subject: string;
   text: string;
   html: string;
@@ -217,7 +230,7 @@ export async function POST(request: Request) {
   }
 
   const apiKey = process.env.RESEND_API_KEY;
-  const to = process.env.CONTACT_TO_EMAIL ?? FALLBACK_TO_EMAIL;
+  const to = notificationRecipients();
   const from = process.env.CONTACT_FROM_EMAIL ?? "MIRASISONE <onboarding@resend.dev>";
 
   const { text, html } = buildMessage(payload);
@@ -258,7 +271,7 @@ export async function POST(request: Request) {
       subject: "【MIRASISONE】お問い合わせありがとうございます",
       text: autoReply.text,
       html: autoReply.html,
-      replyTo: to,
+      replyTo: to[0],
     });
   } catch (error) {
     console.error("[contact] 自動返信メールの送信に失敗しました（通知メールは送信済み）:", error);

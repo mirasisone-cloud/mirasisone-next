@@ -3,6 +3,7 @@
   "slug": "wanote-azabu-projection-mapping-270-immersive",
   "title": "麻布「和ノ音」プロジェクションマッピング導入事例｜270度の没入空間×テーブル演出で五感を包む和食体験",
   "description": "麻布の和食レストラン「和ノ音」に270度壁面＋テーブルプロジェクションマッピングを導入。四季の映像がコース料理と連動する没入型食体験の設計思想と技術を解説。",
+  "excerpt": "東京・麻布の和食レストラン「和ノ音」に導入した270度壁面＋テーブルプロジェクションマッピングの事例。料理と映像が一体化する没入型食体験の設計と技術を解説。",
   "category": "導入事例",
   "categories": [
     "導入事例",
@@ -23,7 +24,7 @@
   ],
   "publishedAt": "2026-09-14",
   "revisedAt": "2026-09-14",
-  "eyecatch": "/images/blog/wanote-azabu-projection-mapping-270-immersive.png",
+  "eyecatch": "/images/blog/wanote-azabu-projection-mapping-270-immersive.jpg",
   "content": [
     {
       "type": "p",
@@ -37,20 +38,20 @@
       "type": "p",
       "text": "日本の食材と映像が交わる、ここにしかない体験。厳選された和牛と旬の食材を、四季の映像が包み込む270度の没入空間で味わう——「食べる」と「体験する」の境界がなくなる新しい食の形です。"
     },
-  {
-  "type": "p",
-  "text": "渋谷「Whitely 小人シェフ」で培ったテーブルPMの技術を、焼肉割烹の世界観で再構築した本事例。この記事では、演出の設計思想から技術的なポイントまでを解説します。"
-},
-{
-  "type": "link",
-  "text": "▶ 和ノ音のプロジェクションマッピング映像をInstagramで見る",
-  "href": "https://www.instagram.com/reel/DZRS7SDyliY/?utm_source=ig_web_copy_link&stkn=MzRlODBiNWFlZA=="
-},
-{
-  "type": "heading",
-  "level": 2,
-  "text": "プロジェクト概要"
-},
+    {
+      "type": "p",
+      "text": "渋谷「Whitely 小人シェフ」で培ったテーブルPMの技術を、焼肉割烹の世界観で再構築した本事例。この記事では、演出の設計思想から技術的なポイントまでを解説します。"
+    },
+    {
+      "type": "link",
+      "text": "▶ 和ノ音のプロジェクションマッピング映像をInstagramで見る",
+      "href": "https://www.instagram.com/reel/DZRS7SDyliY/?utm_source=ig_web_copy_link&stkn=MzRlODBiNWFlZA=="
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "プロジェクト概要"
+    },
     {
       "type": "list",
       "items": [
@@ -63,10 +64,10 @@
       ]
     },
     {
-      "type": "p",
-      "text": "▶ 和ノ音 Instagram：https://www.instagram.com/azabu.wa_note"
+      "type": "link",
+      "text": "▶ 和ノ音 Instagram",
+      "href": "https://www.instagram.com/azabu.wa_note"
     },
-
     {
       "type": "heading",
       "level": 2,
@@ -89,13 +90,11 @@
       "type": "p",
       "text": "この没入感は、料理への期待を高める「舞台装置」として機能します。和食のコースが始まる前から、空間全体が料理の世界観を予感させる映像で満たされている。この「入った瞬間の没入」が、食体験全体の満足度を大きく引き上げます。"
     },
-
     {
       "type": "image",
-      "src": "/images/blog/wanote-azabu-projection-mapping-270-immersive-01.png",
-      "alt": "麻布 和ノ音の270度壁面プロジェクションマッピング｜視界を包み込む没入型空間演出"
+      "src": "/images/blog/wanote-azabu-projection-mapping-270-immersive-01.jpg",
+      "alt": "270度壁面プロジェクションマッピングの投影範囲｜正面＋左右3面を映像で包む没入空間設計"
     },
-
     {
       "type": "heading",
       "level": 3,
@@ -118,13 +117,6 @@
       "type": "p",
       "text": "映像は季節ごとに切り替わるため、リピーターにとっても「次の季節はどんな映像だろう」という再訪動機になります。"
     },
-
-    {
-      "type": "image",
-      "src": "/images/blog/wanote-azabu-projection-mapping-270-immersive-02.png",
-      "alt": "和ノ音の四季をテーマにしたプロジェクションマッピング｜日本の自然と伝統美を表現した映像演出"
-    },
-
     {
       "type": "heading",
       "level": 2,
@@ -154,15 +146,13 @@
     },
     {
       "type": "p",
-      "text": "器を動かすと、その動きに合わせて映像がリアルタイムに変化する。この「映像が器に寄り添う」体験は、テーブルの上に“生きている映像”がいるような感覚を生み出します。"
+      "text": "器を動かすと、その動きに合わせて映像がリアルタイムに変化する。この「映像が器に寄り添う」体験は、テーブルの上に「生きている映像」がいるような感覚を生み出します。"
     },
-
     {
       "type": "image",
-      "src": "/images/blog/wanote-azabu-projection-mapping-270-immersive-03.png",
-      "alt": "和ノ音のテーブルプロジェクションマッピング｜料理と器に映像が寄り添う体験型焼肉割烹"
+      "src": "/images/blog/wanote-azabu-projection-mapping-270-immersive-02.jpg",
+      "alt": "和ノ音のテーブルプロジェクションマッピング｜和食の器と映像が一体化した演出"
     },
-
     {
       "type": "heading",
       "level": 2,
@@ -185,13 +175,11 @@
       "type": "p",
       "text": "この連動を実現するために、複数台のプロジェクター（壁面用＋テーブル用）を1つの制御システムで同期させています。映像の切り替えタイミング、色温度、明るさがすべて統一されることで、「壁もテーブルも同じ空間の一部」という没入感が生まれます。"
     },
-
     {
       "type": "image",
-      "src": "/images/blog/wanote-azabu-projection-mapping-270-immersive-04.png",
-      "alt": "和ノ音の270度壁面とテーブルプロジェクションマッピングの連動演出｜空間全体を包む没入型食体験"
+      "src": "/images/blog/wanote-azabu-projection-mapping-270-immersive-03.jpg",
+      "alt": "壁面とテーブルの映像が連動する没入型空間｜270度の桜がテーブルにも舞い落ちる"
     },
-
     {
       "type": "heading",
       "level": 3,
@@ -205,7 +193,6 @@
       "type": "p",
       "text": "前菜では繊細な草花の映像、焼物では炎を思わせるダイナミックな映像、甘味では月と静寂の映像——料理の温度感・食材の季節感と映像の世界観が一致することで、「この料理をこの空間で食べる意味」が生まれます。"
     },
-
     {
       "type": "heading",
       "level": 2,
@@ -237,7 +224,11 @@
       "type": "p",
       "text": "この「撮影→SNS投稿→新規来店」のサイクルは、Whitely小人シェフで実証済みのメカニズムです。和ノ音でも同様のサイクルが機能し始めています。"
     },
-
+    {
+      "type": "image",
+      "src": "/images/blog/wanote-azabu-projection-mapping-270-immersive-04.jpg",
+      "alt": "和ノ音の270度空間でスマホ撮影する来店者のイメージ｜SNS拡散を前提にした演出設計"
+    },
     {
       "type": "heading",
       "level": 2,
@@ -252,7 +243,6 @@
         "運用設計：季節ごとの映像切り替えはMIRASISONEがリモートで実施可能。店舗スタッフが映像操作を意識する必要がない設計にしています。"
       ]
     },
-
     {
       "type": "heading",
       "level": 2,
@@ -301,7 +291,6 @@
       "type": "p",
       "text": "和ノ音のインタラクティブ演出は、この原理を空間演出に応用しています。壁面に触れた瞬間、テーブルで光を追いかけた瞬間——自分が「体験の当事者」になった記憶が、「あの店にまた行きたい」というリピート動機に直結します。"
     },
-
     {
       "type": "heading",
       "level": 2,

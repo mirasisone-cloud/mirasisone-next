@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 
 type StaticPageData = {
   readonly title: string;
@@ -18,9 +18,13 @@ type StaticScript = {
 type StaticHtmlPageProps = {
   page: StaticPageData;
   contactLinks?: boolean;
+  pageId?: string;
 };
 
 const pageLayoutOverrides = `
+  body :is(#projection, #movie, #ar-xr, #immersive, #works, #services, #contact-form) {
+    scroll-margin-top: 88px;
+  }
   @media (max-width: 1180px) {
     body .str2-section .str2-layout {
       display: flex !important;
@@ -58,19 +62,29 @@ function rewriteLinks(html: string, contactLinks = false) {
     .replaceAll("mirasisone-works-renewal.html#", "/#")
     .replaceAll("mirasisone-works-renewal.html", "/")
     .replaceAll("20260705_mirasisone-contact-page.html", "/contact")
-    .replaceAll("mirasisone-contact-page.html", "/contact");
+    .replaceAll("mirasisone-contact-page.html", "/contact")
+    .replaceAll("#works-projection", "#projection")
+    .replaceAll("#works-movie", "#movie")
+    .replace(/<a href="\/">(STORY|VALUE|FLOW|FAQ)<\/a>/g, (_, label: string) => {
+      const sections: Record<string, string> = { STORY: "ss-p3", VALUE: "our-value", FLOW: "flow", FAQ: "faq" };
+      return `<a href="/#${sections[label]}">${label}</a>`;
+    });
 
   if (contactLinks) {
     nextHtml = nextHtml
       .replaceAll('href="#contact"', 'href="/contact"')
-      .replaceAll('href="#contact-form"', 'href="/contact"');
+      .replaceAll('href="#contact-form"', 'href="/contact"')
+      .replace('class="contact-cta-card" href="mailto:company@mirasisone.com"', 'class="contact-cta-card" href="/contact"')
+      .replace(/href="mailto:company@mirasisone.com"(?=[^>]*class="contact-cta-card)/g, 'href="/contact"');
   }
 
   return nextHtml;
 }
 
-export function StaticHtmlPage({ page, contactLinks = false }: StaticHtmlPageProps) {
+export function StaticHtmlPage({ page, contactLinks = false, pageId }: StaticHtmlPageProps) {
   const body = useMemo(() => rewriteLinks(page.body, contactLinks), [page.body, contactLinks]);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const initializedScripts = useRef(new WeakMap<Element, Set<string>>());
 
   useEffect(() => {
     document.title = page.title;
@@ -147,16 +161,22 @@ export function StaticHtmlPage({ page, contactLinks = false }: StaticHtmlPagePro
     }
 
     function ensureContactFormSubmit() {
+      const submitting = new WeakSet<HTMLFormElement>();
       const submitHandler = async (event: SubmitEvent) => {
         event.preventDefault();
 
         const form = event.currentTarget;
-        if (!(form instanceof HTMLFormElement)) return false;
+        if (!(form instanceof HTMLFormElement) || submitting.has(form)) return;
+        if (!form.reportValidity()) return;
 
         const button = form.querySelector<HTMLButtonElement>(".form-submit");
-        const originalText = button?.textContent ?? "送信する";
+        const feedback = form.querySelector<HTMLElement>(".contact-feedback");
+        const originalContent = button?.innerHTML ?? "送信する";
         const formData = new FormData(form);
         const payload = Object.fromEntries(formData.entries());
+        submitting.add(form);
+        form.setAttribute("aria-busy", "true");
+        if (feedback) { feedback.hidden = true; feedback.textContent = ""; }
 
         if (button) {
           button.textContent = "送信中...";
@@ -169,6 +189,7 @@ export function StaticHtmlPage({ page, contactLinks = false }: StaticHtmlPagePro
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload),
+            signal: AbortSignal.timeout(45000),
           });
           const result = (await response.json().catch(() => ({}))) as { message?: string };
 
@@ -179,28 +200,37 @@ export function StaticHtmlPage({ page, contactLinks = false }: StaticHtmlPagePro
           form.reset();
           window.location.href = "/thanks";
         } catch (error) {
-          if (button) {
-            button.textContent = error instanceof Error ? error.message : "送信に失敗しました";
-            button.style.background = "#dc2626";
-            window.setTimeout(() => {
-              button.textContent = originalText;
-              button.style.background = "";
-              button.disabled = false;
-            }, 3500);
+          const message = error instanceof Error && error.name !== "TimeoutError" && error.name !== "TypeError"
+            ? error.message
+            : "通信を完了できませんでした。入力内容は保持しています。時間をおいて再度お試しください。";
+          if (feedback) {
+            feedback.textContent = message;
+            feedback.hidden = false;
+            feedback.focus();
           }
+        } finally {
+          submitting.delete(form);
+          form.removeAttribute("aria-busy");
+          if (button) { button.innerHTML = originalContent; button.disabled = false; }
         }
-
-        return false;
       };
 
-      (
-        window as typeof window & {
-          handleContactPageSubmit?: (event: SubmitEvent) => Promise<boolean>;
-        }
-      ).handleContactPageSubmit = submitHandler;
+      document.querySelectorAll<HTMLFormElement>("form.contact-form").forEach((form) => {
+        // Register independently of the imported demo scripts and external libraries.
+        form.removeAttribute("onsubmit");
+        form.addEventListener("submit", submitHandler);
+        cleanups.push(() => form.removeEventListener("submit", submitHandler));
+      });
     }
 
     async function runScripts() {
+      const contentRoot = rootRef.current?.firstElementChild;
+      if (!contentRoot) return;
+      let initialized = initializedScripts.current.get(contentRoot);
+      if (!initialized) {
+        initialized = new Set<string>();
+        initializedScripts.current.set(contentRoot, initialized);
+      }
       const scriptTags: readonly StaticScript[] =
         page.scriptTags ?? page.scripts.map((content) => ({ content }));
 
@@ -220,16 +250,21 @@ export function StaticHtmlPage({ page, contactLinks = false }: StaticHtmlPagePro
           continue;
         }
 
-        element.textContent = script.content ?? "";
+        const content = script.content ?? "";
+        // Strict Mode and Fast Refresh can restart effects without replacing the DOM.
+        if (initialized.has(content)) continue;
+        initialized.add(content);
+        // Imported pages reuse names such as `hamburger`; keep declarations local.
+        element.textContent = `(function () {\n${content}\n}).call(window);`;
         document.body.appendChild(element);
       }
 
       if (!cancelled) {
         ensureProjectionValueHover();
-        ensureContactFormSubmit();
       }
     }
 
+    ensureContactFormSubmit();
     runScripts();
 
     return () => {
@@ -244,7 +279,7 @@ export function StaticHtmlPage({ page, contactLinks = false }: StaticHtmlPagePro
     <>
       <style dangerouslySetInnerHTML={{ __html: page.style }} suppressHydrationWarning />
       <style dangerouslySetInnerHTML={{ __html: pageLayoutOverrides }} suppressHydrationWarning />
-      <div dangerouslySetInnerHTML={{ __html: body }} suppressHydrationWarning />
+      <div ref={rootRef} id={pageId} dangerouslySetInnerHTML={{ __html: body }} suppressHydrationWarning />
     </>
   );
 }

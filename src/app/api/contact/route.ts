@@ -10,6 +10,7 @@ type ContactPayload = {
   name?: string;
   kana?: string;
   email?: string;
+  privacy?: string;
   /** ハニーポット。人間には見えない項目なので、埋まっていればボット */
   company_website?: string;
 };
@@ -175,6 +176,7 @@ async function sendEmail({ apiKey, from, to, subject, text, html, replyTo }: Sen
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ from, to, subject, text, html, reply_to: replyTo }),
+    signal: AbortSignal.timeout(15000),
   });
 
   if (!response.ok) {
@@ -193,21 +195,14 @@ export async function POST(request: Request) {
     return NextResponse.json({ message: "送信内容を読み取れませんでした。" }, { status: 400 });
   }
 
+  if (!payload || typeof payload !== "object" || Array.isArray(payload) ||
+      Object.values(payload).some((entry) => typeof entry !== "string")) {
+    return NextResponse.json({ message: "入力内容の形式をご確認ください。" }, { status: 400 });
+  }
+
   // ハニーポットが埋まっていればボット。成功したように見せて黙って破棄する
   if (value(payload, "company_website")) {
     return NextResponse.json({ message: "送信しました。" });
-  }
-
-  const ip =
-    request.headers.get("x-forwarded-for")?.split(",")[0].trim() ||
-    request.headers.get("x-real-ip") ||
-    "unknown";
-
-  if (isRateLimited(ip)) {
-    return NextResponse.json(
-      { message: "送信回数の上限に達しました。しばらく時間をおいてお試しください。" },
-      { status: 429 },
-    );
   }
 
   const missing = requiredFields.filter((field) => !value(payload, field));
@@ -216,8 +211,12 @@ export async function POST(request: Request) {
     return NextResponse.json({ message: "必須項目を入力してください。", missing }, { status: 400 });
   }
 
-  if (requiredFields.some((field) => value(payload, field).length > MAX_FIELD_LENGTH)) {
+  if (Object.values(payload).some((entry) => entry.length > MAX_FIELD_LENGTH)) {
     return NextResponse.json({ message: "入力内容が長すぎます。" }, { status: 400 });
+  }
+
+  if (value(payload, "privacy") !== "accepted") {
+    return NextResponse.json({ message: "プライバシーポリシーへの同意を確認してください。", missing: ["privacy"] }, { status: 400 });
   }
 
   const senderEmail = value(payload, "email");
@@ -227,6 +226,11 @@ export async function POST(request: Request) {
       { message: "メールアドレスの形式をご確認ください。", missing: ["email"] },
       { status: 400 },
     );
+  }
+
+  const ip = request.headers.get("x-forwarded-for")?.split(",")[0].trim() || request.headers.get("x-real-ip") || "unknown";
+  if (isRateLimited(ip)) {
+    return NextResponse.json({ message: "送信回数の上限に達しました。しばらく時間をおいてお試しください。" }, { status: 429 });
   }
 
   const apiKey = process.env.RESEND_API_KEY;

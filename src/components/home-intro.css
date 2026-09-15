@@ -1,0 +1,55 @@
+/* Static flow is the no-JS and reduced-motion fallback. Scroll never gets intercepted. */
+#home-intro { position: relative; color: #fff; background: #080e15; }
+#home-intro .film-stage { position: relative; overflow: hidden; isolation: isolate; }
+#home-intro .film-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+#home-intro .film-shade { position: absolute; inset: 0; background: #050a13; opacity: .58; pointer-events: none; }
+#home-intro .film-opening { position: relative; padding: 140px max(6vw, calc((100vw - 1240px) / 2)) 60px; }
+#home-intro .film-panel { position: relative; padding: 80px max(6vw, calc((100vw - 1240px) / 2)); }
+#home-intro .film-eyebrow { font-family: "Inter", sans-serif !important; font-size: 11px !important; font-weight: 500 !important; letter-spacing: .16em !important; line-height: 1.6 !important; margin: 0 0 28px !important; color: inherit !important; -webkit-text-fill-color: currentColor !important; }
+#home-intro .film-opening-label { font-family: "Noto Serif JP", serif !important; font-size: clamp(18px, 2vw, 28px) !important; font-weight: 400 !important; color: #e5ddff !important; -webkit-text-fill-color: #e5ddff !important; letter-spacing: .07em !important; line-height: 1.9 !important; text-shadow: 0 2px 16px #080e15; }
+#home-intro :is(h1, h2) { margin: 0 !important; font-family: "Noto Serif JP", serif !important; font-size: clamp(42px, 6.1vw, 90px) !important; font-weight: 400 !important; letter-spacing: .05em !important; line-height: 1.6 !important; color: #f4f0ff !important; -webkit-text-fill-color: currentColor !important; text-shadow: none !important; filter: drop-shadow(0 2px 14px #080e1580); }
+#home-intro :is(h1, h2) > span { display: block; white-space: nowrap; color: inherit !important; -webkit-text-fill-color: currentColor !important; }
+#home-intro .film-opening-label > span { display: inline-block; white-space: nowrap; color: inherit !important; -webkit-text-fill-color: currentColor !important; }
+#home-intro h1 > span:last-child { padding-left: .65em; width: fit-content; background: linear-gradient(100deg, #d2c3ff 5%, #9be6df 95%); background-clip: text; -webkit-background-clip: text; color: #bce9e5 !important; -webkit-text-fill-color: transparent !important; }
+#home-intro .film-eyebrow { color: #bce9e5 !important; -webkit-text-fill-color: #bce9e5 !important; }
+#home-intro .film-caption { margin-top: 32px !important; font-family: "Noto Serif JP", serif !important; font-size: 15px !important; font-weight: 400 !important; letter-spacing: .06em !important; line-height: 1.9 !important; color: #e9f1f2 !important; -webkit-text-fill-color: #e9f1f2 !important; }
+#home-intro .film-scroll, #home-intro .film-progress { display: none; }
+#home-intro[data-motion="on"] { height: 200svh; }
+#home-intro[data-motion="on"] .film-stage { position: sticky; top: 0; height: 100svh; }
+#home-intro[data-motion="on"] .film-video { transform: scale(var(--film-scale, 1.06)); }
+#home-intro[data-motion="on"] .film-shade { opacity: 1; background: linear-gradient(to top, #050a13b3, transparent 65%), rgba(5, 10, 19, var(--film-dim, .15)); }
+#home-intro[data-motion="on"] .film-opening { position: absolute; left: 0; bottom: 112px; padding-block: 0; opacity: var(--film-intro, 1); }
+#home-intro[data-motion="on"] .film-opening .film-eyebrow { margin-bottom: 12px !important; }
+#home-intro[data-motion="on"] .film-panel { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding-block: 100px 80px; will-change: opacity, transform; }
+#home-intro[data-motion="on"] .film-panel-first { opacity: var(--film-first, 0); transform: translateY(var(--film-first-y, 90px)); }
+#home-intro[data-motion="on"] .film-scroll { display: flex; gap: 18px; align-items: center; position: absolute; bottom: 38px; right: 6vw; opacity: var(--film-intro, 1); color: #fff !important; -webkit-text-fill-color: #fff !important; pointer-events: none; }
+#home-intro .film-scroll > span:first-child { font: 10px "Inter", sans-serif; letter-spacing: .15em; color: inherit !important; -webkit-text-fill-color: currentColor !important; }
+#home-intro .film-scroll-line { width: 1px; height: 32px; background: rgba(255,255,255,.7); }
+#home-intro[data-motion="on"] .film-progress { display: block; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: #758a9422; }
+#home-intro .film-progress span { display: block; height: 100%; background: linear-gradient(90deg, #b5a0f5, #7ed6ce); transform: scaleX(var(--film-progress, 0)); transform-origin: left; }
+@media (max-width: 768px) {
+  #home-intro[data-motion="on"] { height: 200svh; }
+  #home-intro .film-panel, #home-intro .film-opening { padding-inline: 24px; }
+  #home-intro :is(h1, h2) { font-size: clamp(31px, 8vw, 57px) !important; letter-spacing: .025em !important; line-height: 1.65 !important; }
+  #home-intro h1 { font-size: clamp(30px, 9.2vw, 64px) !important; }
+  #home-intro h1 > span:last-child { padding-left: .3em; }
+  #home-intro .film-eyebrow { font-size: 9px !important; letter-spacing: .11em !important; margin-bottom: 24px !important; }
+  #home-intro .film-caption { font-size: 13px !important; max-width: 23em; }
+  #home-intro .film-opening-label { font-size: clamp(16px, 4.4vw, 18px) !important; max-width: 24em; line-break: strict; }
+  #home-intro[data-motion="on"] .film-panel { padding-block: 100px 80px; }
+}
+@media (max-height: 520px) and (min-width: 769px) {
+  #home-intro :is(h1, h2) { font-size: 38px !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #home-intro .film-video { display: none; }
+  #home-intro .film-stage { background: url('/top-hero-pm-poster.webp') center / cover; }
+}
+/* Match the initial server layout to the client before anchor scrolling occurs. */
+@media (prefers-reduced-motion: reduce), (max-height: 520px) {
+  #home-intro[data-motion="on"] { height: auto; }
+  #home-intro[data-motion="on"] .film-stage { position: relative; height: auto; }
+  #home-intro[data-motion="on"] .film-opening { position: relative; inset: auto; padding-block: 140px 60px; opacity: 1; }
+  #home-intro[data-motion="on"] .film-panel { position: relative; inset: auto; padding-block: 80px; opacity: 1; transform: none; }
+  #home-intro[data-motion="on"] :is(.film-scroll,.film-progress) { display: none; }
+}

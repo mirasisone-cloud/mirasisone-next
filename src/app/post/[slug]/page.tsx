@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { blogPosts, getBlogPost } from "@/content/blog";
-import { appUrl, postCanonicalUrl, WIX_ORIGIN } from "@/content/site";
+import { appUrl, postCanonicalUrl, APP_ORIGIN } from "@/content/site";
 
 type BlogPostPageProps = {
   params: Promise<{
@@ -88,8 +88,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       image: [appUrl(post.eyecatch)],
       datePublished: post.publishedAt,
       dateModified: post.revisedAt || post.publishedAt,
-      author: { "@type": "Organization", name: "MIRASISONE", url: WIX_ORIGIN },
-      publisher: { "@type": "Organization", name: "MIRASISONE", url: WIX_ORIGIN },
+      author: { "@type": "Organization", name: "MIRASISONE", url: APP_ORIGIN },
+      publisher: { "@type": "Organization", name: "MIRASISONE", url: APP_ORIGIN },
       mainEntityOfPage: { "@type": "WebPage", "@id": articleUrl },
       articleSection: post.category,
       inLanguage: "ja",
@@ -98,7 +98,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       itemListElement: [
-        { "@type": "ListItem", position: 1, name: "ホーム", item: WIX_ORIGIN },
+        { "@type": "ListItem", position: 1, name: "ホーム", item: APP_ORIGIN },
         { "@type": "ListItem", position: 2, name: "TOPICS・NEWS", item: appUrl("/blog") },
         { "@type": "ListItem", position: 3, name: post.title, item: articleUrl },
       ],

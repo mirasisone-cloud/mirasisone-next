@@ -9,7 +9,6 @@ export const metadata: Metadata = {
   description:
     "MIRASISONEのブログ記事一覧です。プロジェクションマッピング、3D映像制作、デジタルサイネージ、空間演出に関する記事を掲載しています。",
   alternates: {
-    // www 側は Wix の別ブログなので、apex の絶対URLを正規URLにする
     canonical: appUrl("/blog"),
   },
   openGraph: {

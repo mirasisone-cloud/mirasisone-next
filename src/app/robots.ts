@@ -14,7 +14,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: "/",
       },
     ],
-    // sitemap.xml を配信しているのはこのアプリ（apex）。www は Wix の別 sitemap
     sitemap: `${APP_ORIGIN}/sitemap.xml`,
   };
 }

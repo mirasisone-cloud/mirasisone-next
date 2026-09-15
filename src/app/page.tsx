@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { StaticHtmlPage } from "@/components/StaticHtmlPage";
 import { topPage } from "@/content/top";
 import { blogPosts } from "@/content/blog";
-import { WIX_ORIGIN } from "@/content/site";
+import { APP_ORIGIN } from "@/content/site";
 import { homeLayoutStyles } from "@/content/home-layout-styles";
 import { HomeIntro } from "@/components/HomeIntro";
 import { homeServicesMarkup, homeServicesStyles } from "@/content/home-services";
@@ -19,12 +19,12 @@ export const metadata: Metadata = {
   description: TOP_DESCRIPTION,
   alternates: {
     // 本番の TOP は Wix(www) が配信している（src/content/site.ts 参照）
-    canonical: WIX_ORIGIN,
+    canonical: APP_ORIGIN,
   },
   openGraph: {
     title: TOP_TITLE,
     description: TOP_DESCRIPTION,
-    url: WIX_ORIGIN,
+    url: APP_ORIGIN,
     type: "website",
     images: [{ url: "/top-hero-pm-poster.webp" }],
   },

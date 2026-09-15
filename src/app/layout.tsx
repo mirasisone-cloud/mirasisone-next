@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import "./globals.css";
+import { APP_ORIGIN } from "@/content/site";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.mirasisone.com"),
+  metadataBase: new URL(APP_ORIGIN),
   title: {
     default: "MIRASISONE",
     template: "%s | MIRASISONE",

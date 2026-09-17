@@ -8,6 +8,10 @@ import { HomeIntro } from "@/components/HomeIntro";
 import { homeServicesMarkup, homeServicesStyles } from "@/content/home-services";
 import { refineHomeContent, homeRefinementStyles } from "@/content/home-refinements";
 import { HomeAnchorRecovery } from "@/components/HomeAnchorRecovery";
+import { HomeMotion } from "@/components/HomeMotion";
+import { homeMediaStyles } from "@/content/home-media-styles";
+import { compactHomeContent, homeMobileStyles } from "@/content/home-mobile";
+import { homeWorksMarkup, homeWorksStyles } from "@/content/home-works";
 
 const TOP_TITLE = "プロジェクションマッピング・空間演出の企画制作｜MIRASISONE（東京）";
 const TOP_DESCRIPTION =
@@ -18,7 +22,6 @@ export const metadata: Metadata = {
   title: { absolute: TOP_TITLE },
   description: TOP_DESCRIPTION,
   alternates: {
-    // 本番の TOP は Wix(www) が配信している（src/content/site.ts 参照）
     canonical: APP_ORIGIN,
   },
   openGraph: {
@@ -81,6 +84,7 @@ function withOriginalStory(body: string) {
       const end = intro.indexOf('</div><!-- /.ss-sticky -->');
       if (start < 0 || end < 0) return intro;
       const story = intro.slice(start, end)
+        .replace('<span class="ss-hero-kicker">プロジェクションマッピングで、</span>', '<span class="ss-hero-kicker">テクノロジーで、</span>')
         .replace('src="p2-right-illustration-20260608.png"', 'src="/p2-right-photos-v2.png"')
         .replaceAll('class="ss-phase"', 'class="ss-phase is-active"')
         .replace('<div class="ss-p3-body-block">', `
@@ -104,10 +108,21 @@ function withOriginalStory(body: string) {
 
 export default function HomePage() {
   // StaticHtmlPage は表示後に document.title を page.title で上書きするため、metadata と同じタイトルを渡す
-  const body = refineHomeContent(withOriginalStory(withLatestNews(topPage.body)).replace(
+  const body = compactHomeContent(refineHomeContent(withOriginalStory(withLatestNews(topPage.body)).replace(
     /<section class="wwd-section"[\s\S]*?<\/section>/,
     homeServicesMarkup,
-  ));
-  const page = { ...topPage, title: TOP_TITLE, style: topPage.style + homeLayoutStyles + homeServicesStyles + homeRefinementStyles, body };
-  return <><HomeIntro /><StaticHtmlPage page={page} contactLinks pageId="home-page" /><HomeAnchorRecovery /></>;
+  ))).replace(/<section class="testimonials-section">[\s\S]*?<\/section>/, "")
+    .replace(/<section id="venues" class="works-section">[\s\S]*?<\/section>/, homeWorksMarkup);
+  // Preserve phrase boundaries instead of letting the imported copy script flatten the titles.
+  const scriptTags = topPage.scriptTags?.map(script => ({
+    ...script,
+    content: 'content' in script ? script.content
+      .replace("setText(card.querySelector('.svc-new-h2'), item.title);", "")
+      .replace("btn.classList.toggle('is-active', btn.dataset.filter === tag);", `btn.classList.toggle('is-active', btn.dataset.filter === tag);
+                btn.setAttribute('aria-pressed', String(btn.dataset.filter === tag));
+                btn.style.removeProperty('color');
+                btn.style.removeProperty('-webkit-text-fill-color');`) : undefined,
+  }));
+  const page = { ...topPage, title: TOP_TITLE, style: topPage.style + homeLayoutStyles + homeServicesStyles + homeRefinementStyles + homeMobileStyles + homeMediaStyles + homeWorksStyles, body, scriptTags };
+  return <><HomeIntro /><StaticHtmlPage page={page} contactLinks pageId="home-page" /><HomeAnchorRecovery /><HomeMotion /></>;
 }

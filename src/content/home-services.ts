@@ -1,21 +1,21 @@
 const services = [
   {
     label: "INDOOR MAPPING", href: "#indoor-mapping",
-    photo: "/service-immersive.png",
+    photo: "/service-chef-hero.png",
     title: "屋内<span>プロジェクションマッピング</span>",
     description: "店舗・ホテル・結婚式場の壁・床・テーブルを演出。常設から期間限定まで。",
     drawing: '<path d="M35 28 83 16v63L35 91Z M35 28v63L15 78V40Z M35 60l48-13 M35 60l48 19"/><circle cx="16" cy="60" r="5"/><path d="m21 57 14-20m-14 26 14 20"/>',
   },
   {
     label: "OUTDOOR MAPPING", href: "#outdoor-mapping",
-    photo: "/images/blog/regional-revitalization-projection-mapping-historic-buildings-02.jpg",
+    photo: "/images/blog/regional-revitalization-projection-mapping-historic-buildings-05.jpg",
     title: "屋外<span>イベントマッピング</span>",
     description: "建物の外壁・広場・観光地を舞台に、夜の集客イベントをつくります。",
     drawing: '<path d="M20 85V35l30-17 30 17v50M12 85h76M50 18v67M20 35l60 35M20 60l60-25M32 43v8m0 15v8m36-31v8m0 15v8"/><path d="M50 6v5m37 7-4 4M13 18l4 4"/>',
   },
   {
     label: "3DCG & FILM", href: "#3dcg",
-    photo: "/service-3dcg-visual-v2.png",
+    photo: "/images/home/service-cosmetics.webp",
     title: "3DCG<span>・映像制作</span>",
     description: "マッピング用コンテンツから3D広告・プロモーション映像まで制作します。",
     drawing: '<path d="m50 15 32 18v37L50 89 18 70V33Zm0 0v37m-32-19 32 19 32-19M50 52v37M18 70l32-18 32 18"/><circle cx="50" cy="52" r="10"/>',
@@ -52,7 +52,25 @@ export const homeServicesMarkup = `
 </section>`;
 
 export const homeServicesStyles = String.raw`
-body #home-page #what-we-do { padding: 96px 0 104px; background: linear-gradient(150deg, #f6f4fbe8, #f0f7fae8 60%, #eef8f6e8); }
+body #home-page #what-we-do { position: relative; isolation: isolate; overflow: hidden; padding: 96px 0 104px; background: radial-gradient(ellipse at 90% 12%, #cde8ec 0, transparent 56%), linear-gradient(135deg, #f8f5fc, #f1f6fa 58%, #edf7f5); }
+/* A quiet projection scene adds depth behind the heading without competing with the copy. */
+body #home-page #what-we-do::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: min(78%, 1100px);
+  height: 580px;
+  background: url('/top-value-spatial-v2.jpg') center / cover no-repeat;
+  opacity: .28;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 75%), linear-gradient(180deg, transparent, #000 25%, #000 55%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(90deg, transparent, #000 75%), linear-gradient(180deg, transparent, #000 25%, #000 55%, transparent);
+  mask-composite: intersect;
+  pointer-events: none;
+  z-index: 0;
+}
+body #home-page #what-we-do > .container { position: relative; z-index: 1; }
 body #home-page #what-we-do .service-overview-head { position: relative; margin-bottom: 48px; }
 body #home-page #what-we-do .service-overview-label { display: flex; align-items: center; gap: 16px; margin: 0 0 28px; font: 500 10px/1.6 "Inter", sans-serif; letter-spacing: .16em; color: #66598a; -webkit-text-fill-color: #66598a; }
 body #home-page #what-we-do .service-overview-label > span { width: 40px; height: 1px; background: #988ab580; }
@@ -78,6 +96,8 @@ body #home-page #what-we-do .service-overview-more { display: flex; justify-cont
 body #home-page #what-we-do .service-overview-arrow { display: grid; place-items: center; width: 32px; height: 32px; border: 1px solid #a6b2c480; border-radius: 50%; font-size: 18px; color: var(--service-ink) !important; -webkit-text-fill-color: var(--service-ink) !important; transition: background .25s, transform .25s; }
 body #home-page #what-we-do .service-overview-photo { position: absolute; inset: 0; z-index: -1; border-radius: inherit; overflow: hidden; opacity: var(--service-photo-opacity, 0); transition: opacity .35s ease; pointer-events: none; }
 body #home-page #what-we-do .service-overview-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center; transform: scale(var(--service-photo-scale, 1.035)); transition: transform .7s ease; }
+body #home-page #what-we-do .service-overview-card[href="#outdoor-mapping"] .service-overview-photo { background: #080d10; }
+body #home-page #what-we-do .service-overview-card[href="#outdoor-mapping"] .service-overview-photo img { object-fit: contain; object-position: right center; }
 body #home-page #what-we-do .service-overview-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, #071225bd, #07122566), linear-gradient(0deg, #071225a6, transparent 75%); }
 body #home-page #what-we-do .service-overview-card :is(h3, h3 span, .service-overview-description, .service-overview-more, .service-overview-arrow, .service-overview-meta > span) { -webkit-text-fill-color: var(--service-active-text, currentColor) !important; }
 body #home-page #what-we-do .service-overview-card h3 { color: var(--service-active-text, #27344d) !important; }

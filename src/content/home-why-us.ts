@@ -1,27 +1,30 @@
+// Existing site media: dining poster, top-hero-pm.mp4 at 4.5s, and
+// WANOTE's counter projection photo from https://www.mds-fund.com/wanote
+// (c43a61_7e65d8f2dc924f02b68bf0b29e29bc2a~mv2.png).
 const reasons = [
   {
     en: "DESTINATION",
     issue: "足を運ぶ理由が、見つからない。",
     title: "訪れたくなる、<br>理由をつくる。",
     copy: "その場所でしか味わえない体験を、企画から。食事や買い物の時間に新しい楽しみを重ね、空間そのものを訪れるきっかけにします。",
-    image: "/images/blog/restaurant-spatial-design-sns-strategy-02.png",
-    alt: "光で彩られたテーブルを撮影し、食事を楽しむ空間演出のイメージ",
+    image: "/top-hero-pm-poster.webp",
+    alt: "花の映像が投影されたテーブルで食事を楽しむ様子",
   },
   {
     en: "EMOTION",
     issue: "期待を超える体験を、届けたい。",
     title: "心が動く、<br>その瞬間を設計する。",
     copy: "見るだけでなく、触れる、参加する、誰かに伝える。来場者の気持ちと行動を想像し、思わず共有したくなる没入体験を設計します。",
-    image: "/images/blog/interactive-projection-mapping-guide-03.png",
-    alt: "壁に映る花に手を伸ばす、参加型の空間体験のイメージ",
+    image: "/images/home/why-emotion-real.webp",
+    alt: "テーブルに映し出された光の演出を楽しむ子ども",
   },
   {
     en: "IDENTITY",
     issue: "この場所ならではの魅力を、伝えたい。",
     title: "空間を、<br>ブランドの語り手に。",
     copy: "建物の表情、地域の物語、ブランドの世界観。その場所が持つ個性を光と映像で表現し、訪れる人の記憶に残る風景へと変えていきます。",
-    image: "/images/blog/regional-revitalization-projection-mapping-historic-buildings-02.jpg",
-    alt: "歴史的な建物と庭を花の光で彩る空間演出のイメージ",
+    image: "/images/home/why-counter-mapping.webp",
+    alt: "カウンターテーブルに青と紫の映像を投影し、料理を彩るプロジェクションマッピング",
   },
 ];
 
@@ -35,10 +38,11 @@ export const homeWhyUsMarkup = `
     <div class="why-editorial-grid">
       ${reasons.map((reason, index) => `
       <article class="why-editorial-card">
-        <figure class="why-editorial-photo">
+        <figure class="why-editorial-figure">
+          <div class="why-editorial-photo">
           <img src="${reason.image}" alt="${reason.alt}" loading="lazy" decoding="async">
           <div class="why-photo-meta" aria-hidden="true"><span>0${index + 1}</span><span>${reason.en}</span></div>
-          <figcaption>演出イメージ</figcaption>
+          </div>
         </figure>
         <div class="why-editorial-body">
           <p class="why-challenge">${reason.issue}</p>
@@ -59,13 +63,13 @@ body #home-page #why-us h2 { margin: 0 !important; font: 400 clamp(28px,3vw,40px
 body #home-page #why-us .why-intro { margin: 0 0 5px !important; font: 400 14px/2 "Noto Sans JP",sans-serif !important; letter-spacing: .025em !important; color: #596779 !important; -webkit-text-fill-color: currentColor !important; }
 body #home-page #why-us .why-editorial-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 28px; }
 body #home-page #why-us .why-editorial-card { min-width: 0; }
+body #home-page #why-us .why-editorial-figure { margin: 0; min-width: 0; align-self: start; }
 body #home-page #why-us .why-editorial-photo { position: relative; margin: 0; overflow: hidden; aspect-ratio: 4/3; background: #162139; border-radius: 3px; }
 body #home-page #why-us .why-editorial-photo::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg,#0b14284d,transparent 40%,#0b142866); }
 body #home-page #why-us .why-editorial-photo img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .7s cubic-bezier(.2,.65,.3,1); }
 body #home-page #why-us .why-photo-meta { position: absolute; z-index: 1; inset: 20px 20px auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 body #home-page #why-us .why-photo-meta span { color: #fff !important; -webkit-text-fill-color: #fff !important; font: 500 10px/1.8 "Inter",sans-serif !important; letter-spacing: .16em !important; }
 body #home-page #why-us .why-photo-meta span:first-child { font-size: 15px !important; letter-spacing: .04em !important; }
-body #home-page #why-us .why-editorial-photo figcaption { position: absolute; z-index: 1; bottom: 14px; right: 16px; color: #fff !important; -webkit-text-fill-color: #fff !important; font: 400 10px/1.6 "Noto Sans JP",sans-serif !important; letter-spacing: .04em !important; }
 body #home-page #why-us .why-editorial-body { padding: 26px 2px 0; }
 body #home-page #why-us .why-challenge { margin: 0 0 14px !important; font: 400 11px/1.9 "Noto Sans JP",sans-serif !important; letter-spacing: .02em !important; color: #71677f !important; -webkit-text-fill-color: currentColor !important; }
 body #home-page #why-us h3 { margin: 0 0 20px !important; font: 400 clamp(23px,2vw,28px)/1.8 "Noto Serif JP",serif !important; letter-spacing: .025em !important; color: #304b60 !important; -webkit-text-fill-color: currentColor !important; background: none !important; text-shadow: none !important; }

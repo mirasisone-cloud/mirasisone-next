@@ -56,9 +56,9 @@ function refineHeadings(body: string) {
 export function refineHomeContent(body: string) {
   const strengthImages = ["/top-value-planning-v2.jpg", "/top-value-spatial-v2.jpg", "/top-value-technical-v2.jpg"];
   const serviceImages: Record<string, [string, string, string]> = {
-    "屋内PM": ["/service-immersive.png", "/top-value-spatial-v2.jpg", "壁と床に映像が広がる屋内空間のイメージ"],
-    "屋外PM": [spaces[3].image, spaces[3].image, "歴史的建造物への屋外マッピングのイメージ"],
-    "3DCG": ["/service-3dcg-visual-v2.png", "/service-3dcg-visual-v2.png", "金属とガラスの立体造形がワイヤーフレームへつながる3DCG・映像制作のイメージ"],
+    "屋内PM": ["/service-immersive.png", "/service-chef-hero.png", "壁と床に映像が広がる屋内空間のイメージ"],
+    "屋外PM": [spaces[3].image, "/images/blog/regional-revitalization-projection-mapping-historic-buildings-05.jpg", "歴史的建造物への屋外マッピングのイメージ"],
+    "3DCG": ["/service-3dcg-visual-v2.png", "/images/home/service-cosmetics.webp", "金属とガラスの立体造形がワイヤーフレームへつながる3DCG・映像制作のイメージ"],
     "ARVR": ["/service-ar-xr.png", "/service-ar-xr.png", "スマートフォンを通じたAR空間体験のイメージ"],
   };
   return refineHeadings(body)
@@ -71,7 +71,7 @@ export function refineHomeContent(body: string) {
     .replace('<section class="str2-section">', '<section class="str2-section" id="our-value">')
     .replace('<section class="news-section">', '<section class="news-section" id="updates">')
     .replace(/<div class="str2-item" data-img="([0-2])">/g, (_, index: string) => `<div class="str2-item" data-img="${index}" tabindex="0"><img class="strength-mobile-photo" src="${strengthImages[Number(index)]}" alt="" loading="lazy" decoding="async">`)
-    .replace(/<div class="about-ceo-placeholder-inner">[\s\S]*?<\/div>/, '<div class="about-brand-panel"><span class="about-brand-label">OUR VISION</span><span class="about-brand-word">空間に、<br>まだない体験を。</span><span class="about-brand-sign">MIRASISONE</span></div>')
+    .replace(/<div class="about-ceo-placeholder-inner">[\s\S]*?<\/div>/, '<img class="about-ceo-photo" src="/ceo-soya-ito.png" alt="株式会社MIRASISONE 代表取締役 伊藤宗也" width="1448" height="1086" loading="lazy" decoding="async">')
     .replace('※ CEO略歴・メッセージを別途入稿', '')
     .replace('<a href="/">STORY</a>', '<a href="#ss-p3">STORY</a>')
     .replace('<a href="/">VALUE</a>', '<a href="#our-value">VALUE</a>')
@@ -113,6 +113,11 @@ body #home-page .svc-new-visual::before { font: 500 11px/1.6 "Inter",sans-serif 
 body #home-page .svc-new-text { margin-block: 20px !important; font: 400 14px/1.9 "Noto Sans JP",sans-serif !important; }
 body #home-page :is(.svc-new-cta,.process-cta-btn,.news-view-all,.venues-cta-btn) { border: 1px solid #9c9fb8 !important; border-radius: 3px !important; background: #ffffff80 !important; box-shadow: none !important; color: #42667a !important; -webkit-text-fill-color: #42667a !important; min-height: 48px; }
 body #home-page .svc-new-cta * { color: inherit !important; -webkit-text-fill-color: currentColor !important; }
+body #home-page #services .svc-new-cta.btn-grad {
+  border: 0 !important;
+  background: none !important;
+  box-shadow: none !important;
+}
 body #home-page .voice-grid { gap: 24px !important; }
 body #home-page .voice-card { background: #ffffff80 !important; }
 body #home-page .voice-body { padding: 24px !important; }
@@ -144,9 +149,8 @@ body #home-page .faq-list summary::before { background: none !important; border:
 body #home-page .faq-answer { padding: 0 24px 24px !important; font: 400 14px/2 "Noto Sans JP",sans-serif !important; }
 body #home-page .about-top { gap: 56px !important; align-items: center !important; }
 body #home-page .about-ceo-placeholder { background: linear-gradient(135deg,#e6e0f6,#d6eeee) !important; border-radius: 4px !important; border: 1px solid #c0cadc !important; box-shadow: none !important; }
-body #home-page .about-brand-panel { position: relative; display: flex; flex-direction: column; justify-content: center; gap: 32px; padding: 40px; height: 100%; min-height: 320px; }
-body #home-page .about-brand-label, body #home-page .about-brand-sign { font: 500 10px/1.8 "Inter",sans-serif !important; letter-spacing: .19em !important; color: #6d638e !important; -webkit-text-fill-color: #6d638e !important; }
-body #home-page .about-brand-word { font: 400 clamp(24px,2.1vw,30px)/1.8 "Noto Serif JP",serif !important; letter-spacing: .04em; color: #426b7b !important; -webkit-text-fill-color: #426b7b !important; }
+body #home-page .about-ceo-placeholder::before { display: none !important; }
+body #home-page .about-ceo-photo { display: block; width: 100%; height: 100%; position: absolute; inset: 0; object-fit: cover; object-position: 50% 40%; }
 body #home-page .about-info-row { background: #ffffff60 !important; border: 0 !important; border-bottom: 1px solid #d1d9e3 !important; border-radius: 0 !important; }
 body #home-page .about-info-row dt { font-size: 13px !important; color: #696284 !important; -webkit-text-fill-color: #696284 !important; }
 body #home-page .about-info-row dd { font-size: 14px !important; color: #43516a !important; -webkit-text-fill-color: #43516a !important; }
@@ -197,7 +201,6 @@ body #home-page .space-guide-card:focus-visible { --space-photo: 1; --space-text
   body #home-page .faq-list summary { font-size: 16px !important; padding: 18px 16px !important; }
   body #home-page .faq-answer { padding: 0 16px 20px !important; }
   body #home-page .news-header { flex-wrap: wrap !important; gap: 16px !important; }
-  body #home-page .about-brand-panel { min-height: 250px; padding: 28px; gap: 24px; }
   body #home-page .space-guide-grid { grid-template-columns: minmax(0,1fr); gap: 20px; }
   body #home-page .space-guide-card { --space-text: #30455b !important; padding: 20px; }
   body #home-page .space-guide-photo { position: relative; inset: auto; z-index: auto; opacity: 1; aspect-ratio: 16/9; margin: -20px -20px 24px; border-radius: 3px 3px 0 0; }

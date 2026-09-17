@@ -1,0 +1,8 @@
+# Local credentials, build output, and working notes do not belong in deployments.
+.env*
+.git
+.next
+node_modules
+outputs
+*.log
+*.tsbuildinfo

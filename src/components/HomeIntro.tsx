@@ -24,10 +24,14 @@ export function HomeIntro() {
 
     const update = () => {
       frame = 0;
+      const compact = window.matchMedia("(max-width: 768px), (max-width: 1024px) and (max-height: 520px)").matches;
       const reduced = preference.matches || window.innerHeight <= 520;
-      root.dataset.motion = reduced ? "off" : "on";
-      if (reduced) {
-        videoRef.current?.pause();
+      root.dataset.motion = reduced || compact ? "off" : "on";
+      if (reduced || compact) {
+        const video = videoRef.current;
+        const rect = stage.getBoundingClientRect();
+        if (video && (preference.matches || rect.bottom <= 0 || rect.top >= window.innerHeight)) video.pause();
+        else if (video?.paused) void video.play().catch(() => {});
         if (firstRef.current) firstRef.current.inert = false;
         return;
       }
@@ -37,7 +41,7 @@ export function HomeIntro() {
       root.style.setProperty("--film-intro", String(1 - ramp(progress, .02, .14)));
       root.style.setProperty("--film-first", String(firstIn));
       root.style.setProperty("--film-first-y", `${(1 - firstIn) * 90}px`);
-      root.style.setProperty("--film-dim", String(.15 + firstIn * .43));
+      root.style.setProperty("--film-dim", String(.15 * (1 - firstIn)));
       root.style.setProperty("--film-scale", String(1.06 - progress * .06));
       root.style.setProperty("--film-progress", String(progress));
       root.dataset.scene = progress < .14 ? "film" : "message";
@@ -66,17 +70,18 @@ export function HomeIntro() {
     <>
       <section id="home-intro" ref={rootRef} data-motion="on" aria-label="MIRASISONEの空間演出">
         <div className="film-stage" ref={stageRef}>
-          <video ref={videoRef} className="film-video" autoPlay muted loop playsInline poster="/top-hero-pm-poster.webp" aria-label="テーブルへのプロジェクションマッピング事例">
-            <source src="/top-hero-pm.mp4" type="video/mp4" />
-          </video>
-          <div className="film-shade" aria-hidden="true" />
+          <div className="film-media">
+            <video ref={videoRef} className="film-video" width={1280} height={720} autoPlay muted loop playsInline poster="/top-hero-pm-poster.webp" aria-label="テーブルへのプロジェクションマッピング事例">
+              <source src="/top-hero-pm.mp4" type="video/mp4" />
+            </video>
+            <div className="film-shade" aria-hidden="true" />
+          </div>
           <div className="film-opening">
             <p className="film-eyebrow">MIRASISONE — SPATIAL EXPERIENCE STUDIO</p>
-            <p className="film-opening-label"><span>プロジェクションマッピング</span><span>・空間演出の企画制作</span></p>
           </div>
           <div className="film-panel film-panel-first" ref={firstRef}>
-            <p className="film-eyebrow">01 / LIGHT. SPACE. EXPERIENCE.</p>
-            <h1><span>光で、空間を。</span><span>体験で、心を。</span></h1>
+            <p className="film-eyebrow">LIGHT. SPACE. EXPERIENCE.</p>
+            <h1><span><em>光</em>で、空間を。</span><span><em>体験</em>で、心を。</span></h1>
             <p className="film-caption">光と映像で、日常の空間を特別な体験へ。</p>
           </div>
           <div className="film-scroll" aria-hidden="true"><span>SCROLL TO EXPLORE</span><span className="film-scroll-line" /></div>

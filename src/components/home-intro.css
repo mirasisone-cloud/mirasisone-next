@@ -1,23 +1,29 @@
 /* Static flow is the no-JS and reduced-motion fallback. Scroll never gets intercepted. */
-#home-intro { position: relative; color: #fff; background: #080e15; }
+#home-intro { position: relative; color: #fff; background: #f6f5fa; }
 #home-intro .film-stage { position: relative; overflow: hidden; isolation: isolate; }
+#home-intro .film-media { position: absolute; inset: 0; overflow: hidden; }
 #home-intro .film-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
 #home-intro .film-shade { position: absolute; inset: 0; background: #050a13; opacity: .58; pointer-events: none; }
 #home-intro .film-opening { position: relative; padding: 140px max(6vw, calc((100vw - 1240px) / 2)) 60px; }
 #home-intro .film-panel { position: relative; padding: 80px max(6vw, calc((100vw - 1240px) / 2)); }
 #home-intro .film-eyebrow { font-family: "Inter", sans-serif !important; font-size: 11px !important; font-weight: 500 !important; letter-spacing: .16em !important; line-height: 1.6 !important; margin: 0 0 28px !important; color: inherit !important; -webkit-text-fill-color: currentColor !important; }
 #home-intro .film-opening-label { font-family: "Noto Serif JP", serif !important; font-size: clamp(18px, 2vw, 28px) !important; font-weight: 400 !important; color: #e5ddff !important; -webkit-text-fill-color: #e5ddff !important; letter-spacing: .07em !important; line-height: 1.9 !important; text-shadow: 0 2px 16px #080e15; }
-#home-intro :is(h1, h2) { margin: 0 !important; font-family: "Noto Serif JP", serif !important; font-size: clamp(42px, 6.1vw, 90px) !important; font-weight: 400 !important; letter-spacing: .05em !important; line-height: 1.6 !important; color: #f4f0ff !important; -webkit-text-fill-color: currentColor !important; text-shadow: none !important; filter: drop-shadow(0 2px 14px #080e1580); }
+#home-intro :is(h1, h2) { margin: 0 !important; font-family: "Noto Serif JP", serif !important; font-size: clamp(42px, 6.1vw, 90px) !important; font-weight: 400 !important; letter-spacing: .05em !important; line-height: 1.6 !important; color: #30465a !important; -webkit-text-fill-color: currentColor !important; text-shadow: none !important; }
 #home-intro :is(h1, h2) > span { display: block; white-space: nowrap; color: inherit !important; -webkit-text-fill-color: currentColor !important; }
 #home-intro .film-opening-label > span { display: inline-block; white-space: nowrap; color: inherit !important; -webkit-text-fill-color: currentColor !important; }
-#home-intro h1 > span:last-child { padding-left: .65em; width: fit-content; background: linear-gradient(100deg, #d2c3ff 5%, #9be6df 95%); background-clip: text; -webkit-background-clip: text; color: #bce9e5 !important; -webkit-text-fill-color: transparent !important; }
+#home-intro h1 > span:last-child { padding-left: .65em; width: fit-content; }
+#home-intro h1 em { font-style: normal; background: linear-gradient(120deg,#78629b,#417d83); background-clip: text; -webkit-background-clip: text; color: #666d8d !important; -webkit-text-fill-color: transparent !important; }
+#home-intro .film-panel .film-eyebrow { display: flex; align-items: center; gap: 16px; color: #716783 !important; -webkit-text-fill-color: currentColor !important; }
+#home-intro .film-panel .film-eyebrow::before { content: ""; width: 32px; height: 1px; background: linear-gradient(90deg,#9281b2,#7fa7aa); }
 #home-intro .film-eyebrow { color: #bce9e5 !important; -webkit-text-fill-color: #bce9e5 !important; }
-#home-intro .film-caption { margin-top: 32px !important; font-family: "Noto Serif JP", serif !important; font-size: 15px !important; font-weight: 400 !important; letter-spacing: .06em !important; line-height: 1.9 !important; color: #e9f1f2 !important; -webkit-text-fill-color: #e9f1f2 !important; }
+#home-intro .film-caption { margin-top: 32px !important; font-family: "Noto Serif JP", serif !important; font-size: 15px !important; font-weight: 400 !important; letter-spacing: .06em !important; line-height: 1.9 !important; color: #536679 !important; -webkit-text-fill-color: currentColor !important; }
 #home-intro .film-scroll, #home-intro .film-progress { display: none; }
 #home-intro[data-motion="on"] { height: 200svh; }
 #home-intro[data-motion="on"] .film-stage { position: sticky; top: 0; height: 100svh; }
 #home-intro[data-motion="on"] .film-video { transform: scale(var(--film-scale, 1.06)); }
-#home-intro[data-motion="on"] .film-shade { opacity: 1; background: linear-gradient(to top, #050a13b3, transparent 65%), rgba(5, 10, 19, var(--film-dim, .15)); }
+#home-intro[data-motion="on"] .film-shade { opacity: 1; background: linear-gradient(110deg,rgba(246,245,250,calc(var(--film-first,0) * .98)),rgba(236,246,248,calc(var(--film-first,0) * .9))), linear-gradient(to top, #13243966, transparent 65%), rgba(5, 10, 19, var(--film-dim, .15)); }
+#home-intro[data-motion="off"] .film-shade { background: linear-gradient(110deg,#f6f5faf5,#ecf6f8eb); opacity: 1; }
+#home-intro[data-motion="off"] .film-opening-label { color: #657086 !important; -webkit-text-fill-color: currentColor !important; text-shadow: none; }
 #home-intro[data-motion="on"] .film-opening { position: absolute; left: 0; bottom: 112px; padding-block: 0; opacity: var(--film-intro, 1); }
 #home-intro[data-motion="on"] .film-opening .film-eyebrow { margin-bottom: 12px !important; }
 #home-intro[data-motion="on"] .film-panel { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding-block: 100px 80px; will-change: opacity, transform; }
@@ -43,7 +49,8 @@
 }
 @media (prefers-reduced-motion: reduce) {
   #home-intro .film-video { display: none; }
-  #home-intro .film-stage { background: url('/top-hero-pm-poster.webp') center / cover; }
+  #home-intro .film-media { background: url('/top-hero-pm-poster.webp') center / cover; }
+  #home-intro[data-motion="on"] .film-shade { background: linear-gradient(110deg,#f6f5faf5,#ecf6f8eb); }
 }
 /* Match the initial server layout to the client before anchor scrolling occurs. */
 @media (prefers-reduced-motion: reduce), (max-height: 520px) {
@@ -52,4 +59,26 @@
   #home-intro[data-motion="on"] .film-opening { position: relative; inset: auto; padding-block: 140px 60px; opacity: 1; }
   #home-intro[data-motion="on"] .film-panel { position: relative; inset: auto; padding-block: 80px; opacity: 1; transform: none; }
   #home-intro[data-motion="on"] :is(.film-scroll,.film-progress) { display: none; }
+}
+/* Phones use a landscape film followed by the message, without a pinned scene. */
+@media (max-width: 768px), (max-width: 1024px) and (max-height: 520px) {
+  #home-intro, #home-intro[data-motion="on"] { height: auto; padding-top: 64px; }
+  #home-intro .film-stage, #home-intro[data-motion="on"] .film-stage { position: relative; top: auto; height: auto; display: flex; flex-direction: column; background: radial-gradient(ellipse at 100% 65%,#e5f1f0 0,transparent 60%),linear-gradient(145deg,#f6f5fa,#f1f1f9); }
+  #home-intro .film-media { position: relative; inset: auto; order: 0; flex: none; margin: 14px 20px 0; aspect-ratio: 16/9; border-radius: 4px; background: #f6f5fa url('/top-hero-pm-poster.webp') center / contain no-repeat; }
+  /* Keep the complete video frame and poster visible, including on iPhone Safari. */
+  #home-intro .film-video, #home-intro[data-motion="on"] .film-video { position: relative; inset: auto; display: block; width: 100%; height: auto; max-height: none; aspect-ratio: 16/9; object-fit: contain; object-position: center; transform: none; }
+  #home-intro .film-shade, #home-intro .film-eyebrow, #home-intro .film-caption,
+  #home-intro .film-scroll, #home-intro .film-progress, #home-intro[data-motion="on"] :is(.film-scroll,.film-progress) { display: none; }
+  #home-intro .film-opening, #home-intro[data-motion="on"] .film-opening { display: none; }
+  #home-intro .film-opening-label { margin: 0; font-family: 'Noto Sans JP',sans-serif !important; font-size: 11px !important; line-height: 1.9 !important; letter-spacing: .02em !important; color: #657086 !important; -webkit-text-fill-color: currentColor !important; text-shadow: none; }
+  #home-intro .film-panel, #home-intro[data-motion="on"] .film-panel { position: relative; inset: auto; order: 1; display: block; opacity: 1; transform: none; padding: 24px 24px 28px; will-change: auto; }
+  #home-intro .film-panel .film-eyebrow { display: flex; font-size: 8px !important; letter-spacing: .16em !important; margin: 0 0 12px !important; gap: 12px; }
+  #home-intro h1 { font-size: clamp(30px,9.5vw,44px) !important; line-height: 1.55 !important; letter-spacing: .055em !important; }
+  #home-intro h1 > span:last-child { padding-left: .7em; }
+}
+@media (max-width: 1024px) and (max-height: 520px) and (min-width: 769px) {
+  #home-intro .film-media { max-width: 498px; width: calc(100% - 40px); align-self: center; }
+}
+@media (prefers-reduced-motion: reduce) and (max-width: 768px), (prefers-reduced-motion: reduce) and (max-width: 1024px) and (max-height: 520px) {
+  #home-intro .film-video, #home-intro[data-motion="on"] .film-video { display: none; }
 }

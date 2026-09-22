@@ -1,4 +1,5 @@
-// Existing site media: dining poster, top-hero-pm.mp4 at 4.5s, and
+// Real project photos, kept distinct from the hero film so phones do not show the same scene twice:
+// SHISHA BOUTIQUE FREAKS, the Osaka Expo pavilion, and
 // WANOTE's counter projection photo from https://www.mds-fund.com/wanote
 // (c43a61_7e65d8f2dc924f02b68bf0b29e29bc2a~mv2.png).
 const reasons = [
@@ -7,16 +8,16 @@ const reasons = [
     issue: "足を運ぶ理由が、見つからない。",
     title: "訪れたくなる、<br>理由をつくる。",
     copy: "その場所でしか味わえない体験を、企画から。食事や買い物の時間に新しい楽しみを重ね、空間そのものを訪れるきっかけにします。",
-    image: "/top-hero-pm-poster.webp",
-    alt: "花の映像が投影されたテーブルで食事を楽しむ様子",
+    image: "/images/works/shisha-freaks.webp",
+    alt: "壁一面にランタンの映像を投影したシーシャバーの店内",
   },
   {
     en: "EMOTION",
     issue: "期待を超える体験を、届けたい。",
     title: "心が動く、<br>その瞬間を設計する。",
     copy: "見るだけでなく、触れる、参加する、誰かに伝える。来場者の気持ちと行動を想像し、思わず共有したくなる没入体験を設計します。",
-    image: "/images/home/why-emotion-real.webp",
-    alt: "テーブルに映し出された光の演出を楽しむ子ども",
+    image: "/images/works/expo-osaka.webp",
+    alt: "大阪万博のパビリオンで寿司職人の映像を投影した展示",
   },
   {
     en: "IDENTITY",

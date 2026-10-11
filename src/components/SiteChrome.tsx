@@ -15,6 +15,7 @@ export function SiteHeader() {
         <Link href="/works">実績・サービス</Link>
         <Link href="/blog">記事</Link>
         <Link href="/company">会社概要</Link>
+        <Link href="/recruit">採用</Link>
         <Link className="site-chrome-cta" href="/contact">
           無料相談
         </Link>

@@ -55,6 +55,13 @@ const pageLayoutOverrides = `
       flex: none !important;
     }
   }
+
+  /* メニュー項目を足したぶん、狭い画面ではヘッダーが詰まるので整理する */
+  @media (max-width: 1200px) {
+    body #main-nav .nav-links { gap: 14px !important; font-size: 12px !important; }
+    body #main-nav .nav-links .exp-designed { display: none !important; }
+    body #main-nav .nav-logo-copy { display: none !important; }
+  }
 `;
 
 /** ローカル画像を Next の画像最適化（自動リサイズ・webp 変換）経由で配信する */
@@ -79,10 +86,21 @@ function rewriteLinks(html: string, contactLinks = false) {
       return `<a href="/#${sections[label]}">${label}</a>`;
     });
 
+  // ヘッダーからも全ページへ行けるようにする（PCは記事と会社概要、スマホのメニューは採用も）
+  nextHtml = nextHtml
+    .replace(
+      /(<a [^>]*class="nav-cta[^"]*"[^>]*>)/,
+      '<a href="/blog">TOPICS</a><a href="/company">COMPANY</a>$1',
+    )
+    .replace(
+      /(<a [^>]*class="nav-drawer-cta[^"]*"[^>]*>)/,
+      '<a href="/blog">TOPICS</a><a href="/company">COMPANY</a><a href="/recruit">RECRUIT</a>$1',
+    );
+
   // 会社概要・採用はどのページからも辿れなかったので、フッターに足す
   nextHtml = nextHtml.replace(
     /(<nav class="footer-simple-nav[^>]*>[\s\S]*?)(<\/nav>)/,
-    '$1<a href="/blog">TOPICS</a><a href="/company">COMPANY</a><a href="/recruit">RECRUIT</a>$2',
+    '$1<a href="/blog">TOPICS</a><a href="/company">COMPANY</a><a href="/recruit">RECRUIT</a><a href="/privacy-policy">PRIVACY</a>$2',
   );
 
   if (contactLinks) {

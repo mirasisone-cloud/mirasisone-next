@@ -5,6 +5,7 @@ import { blogPosts } from "@/content/blog";
 import { APP_ORIGIN } from "@/content/site";
 import { homeLayoutStyles } from "@/content/home-layout-styles";
 import { HomeIntro } from "@/components/HomeIntro";
+import { faqJsonLd, jsonLdScript } from "@/content/structured-data";
 import { homeServicesMarkup, homeServicesStyles } from "@/content/home-services";
 import { refineHomeContent, homeRefinementStyles } from "@/content/home-refinements";
 import { HomeAnchorRecovery } from "@/components/HomeAnchorRecovery";
@@ -124,5 +125,14 @@ export default function HomePage() {
                 btn.style.removeProperty('-webkit-text-fill-color');`) : undefined,
   }));
   const page = { ...topPage, title: TOP_TITLE, style: topPage.style + homeLayoutStyles + homeServicesStyles + homeRefinementStyles + homeMobileStyles + homeMediaStyles + homeWorksStyles, body, scriptTags };
-  return <><HomeIntro /><StaticHtmlPage page={page} contactLinks pageId="home-page" /><HomeAnchorRecovery /><HomeMotion /></>;
+  return (
+    <>
+      {/* TOP の FAQ セクションと同じ内容。検索結果に Q&A が出ることがある */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdScript(faqJsonLd)} />
+      <HomeIntro />
+      <StaticHtmlPage page={page} contactLinks pageId="home-page" />
+      <HomeAnchorRecovery />
+      <HomeMotion />
+    </>
+  );
 }

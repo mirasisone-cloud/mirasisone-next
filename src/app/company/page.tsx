@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { LegacyPageShell } from "@/components/LegacyPageLayout";
 
 export const metadata: Metadata = {
-  title: "COMPANY",
+  title: "会社概要｜プロジェクションマッピング制作会社",
   description:
     "プロジェクションマッピングや3DCG制作を手掛けるMIRASISONEの会社概要、ミッション、ビジョン、バリューを紹介します。",
   alternates: {

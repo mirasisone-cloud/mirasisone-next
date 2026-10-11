@@ -55,6 +55,7 @@ function refineHeadings(body: string) {
 /** Changes apply only to the homepage, leaving the original imported source intact. */
 export function refineHomeContent(body: string) {
   const strengthImages = ["/top-value-planning-v2.jpg", "/top-value-spatial-v2.jpg", "/top-value-technical-v2.jpg"];
+  const strengthAlts = ["企画した空間演出の打ち合わせの様子", "映像で演出した空間", "プロジェクターを設置して調整する様子"];
   const serviceImages: Record<string, [string, string, string]> = {
     "屋内PM": ["/service-immersive.png", "/service-chef-hero.png", "壁と床に映像が広がる屋内空間のイメージ"],
     "屋外PM": [spaces[3].image, "/images/blog/regional-revitalization-projection-mapping-historic-buildings-05.jpg", "歴史的建造物への屋外マッピングのイメージ"],
@@ -70,7 +71,7 @@ export function refineHomeContent(body: string) {
     .replace(/<section class="venues-section">[\s\S]*?<\/section>/, spacesMarkup)
     .replace('<section class="str2-section">', '<section class="str2-section" id="our-value">')
     .replace('<section class="news-section">', '<section class="news-section" id="updates">')
-    .replace(/<div class="str2-item" data-img="([0-2])">/g, (_, index: string) => `<div class="str2-item" data-img="${index}" tabindex="0"><img class="strength-mobile-photo" src="${strengthImages[Number(index)]}" alt="" loading="lazy" decoding="async">`)
+    .replace(/<div class="str2-item" data-img="([0-2])">/g, (_, index: string) => `<div class="str2-item" data-img="${index}" tabindex="0"><img class="strength-mobile-photo" src="${strengthImages[Number(index)]}" alt="${strengthAlts[Number(index)]}" loading="lazy" decoding="async">`)
     .replace(/<div class="about-ceo-placeholder-inner">[\s\S]*?<\/div>/, '<img class="about-ceo-photo" src="/ceo-soya-ito.png" alt="株式会社MIRASISONE 代表取締役 伊藤宗也" width="1448" height="1086" loading="lazy" decoding="async">')
     .replace('※ CEO略歴・メッセージを別途入稿', '')
     .replace('<a href="/">STORY</a>', '<a href="#ss-p3">STORY</a>')

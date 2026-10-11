@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { StaticHtmlPage } from "@/components/StaticHtmlPage";
 import { worksPage } from "@/content/works";
+import { jsonLdScript, servicesJsonLd } from "@/content/structured-data";
 
 export const metadata: Metadata = {
-  title: "SERVICES & WORKS",
+  title: "制作実績・サービス｜プロジェクションマッピング / 3DCG",
   description:
     "プロジェクションマッピング、3DCG映像制作、AR・XRコンテンツ、イマーシブ空間演出の制作領域と実績を紹介します。",
   alternates: {
@@ -18,5 +19,11 @@ export const metadata: Metadata = {
 };
 
 export default function WorksPage() {
-  return <StaticHtmlPage page={worksPage} contactLinks />;
+  return (
+    <>
+      {/* 提供サービスの一覧 */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdScript(servicesJsonLd)} />
+      <StaticHtmlPage page={worksPage} contactLinks />
+    </>
+  );
 }

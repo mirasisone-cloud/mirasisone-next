@@ -4,7 +4,7 @@ import { contactPage } from "@/content/contact";
 import { appUrl } from "@/content/site";
 
 export const metadata: Metadata = {
-  title: "CONTACT",
+  title: "お問い合わせ・無料相談｜費用のお見積りも",
   description:
     "空間演出、プロジェクションマッピング、3DCGコンテンツ制作のご相談はこちら。企画・設計から実装まで、MIRASISONEがご対応します。",
   alternates: {

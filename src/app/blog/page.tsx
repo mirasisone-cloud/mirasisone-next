@@ -5,7 +5,7 @@ import { blogNavCategories, blogPosts } from "@/content/blog";
 import { appUrl } from "@/content/site";
 
 export const metadata: Metadata = {
-  title: "TOPICS・NEWS",
+  title: "プロジェクションマッピングの費用・事例ガイド",
   description:
     "MIRASISONEのブログ記事一覧です。プロジェクションマッピング、3D映像制作、デジタルサイネージ、空間演出に関する記事を掲載しています。",
   alternates: {
@@ -66,7 +66,7 @@ export default async function BlogPage({ searchParams }: Props) {
         {visiblePosts.map((post, index) => (
           <article className="wix-post-card" key={`${post.slug}-${index}`}>
             <Link className="wix-post-image" href={`/post/${encodeURIComponent(post.slug)}`}>
-              <Image src={post.eyecatch} alt="" fill sizes="(max-width: 900px) 100vw, 454px" priority={index === 0} />
+              <Image src={post.eyecatch} alt={post.title} fill sizes="(max-width: 900px) 100vw, 454px" priority={index === 0} />
             </Link>
             <div className="wix-post-body">
               <div className="wix-post-topline">

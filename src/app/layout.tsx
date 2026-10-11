@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import "./globals.css";
 import { APP_ORIGIN } from "@/content/site";
+import { jsonLdScript, organizationJsonLd, websiteJsonLd } from "@/content/structured-data";
 
 export const metadata: Metadata = {
   metadataBase: new URL(APP_ORIGIN),
@@ -37,6 +38,9 @@ export default function RootLayout({
         />
       </head>
       <body>
+        {/* 会社情報とサイト情報。検索結果での表示に使われる */}
+        <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdScript(organizationJsonLd)} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdScript(websiteJsonLd)} />
         {children}
         <Script src="https://unpkg.com/@phosphor-icons/web" strategy="afterInteractive" />
 

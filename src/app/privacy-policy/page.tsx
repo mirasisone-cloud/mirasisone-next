@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { LegacyPageShell } from "@/components/LegacyPageLayout";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy",
+  title: "プライバシーポリシー",
   description:
     "MIRASISONEのプライバシーポリシーです。個人情報の取得、利用、管理、第三者提供、開示請求等について定めています。",
   alternates: {

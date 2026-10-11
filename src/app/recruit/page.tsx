@@ -3,7 +3,7 @@ import Link from "next/link";
 import { LegacyPageShell } from "@/components/LegacyPageLayout";
 
 export const metadata: Metadata = {
-  title: "RECRUIT",
+  title: "採用情報｜3DCG・空間演出クリエイター募集",
   description:
     "MIRASISONEの採用情報です。映像制作、3DCG、プロジェクションマッピング、空間演出に関わるクリエイターを募集しています。",
   alternates: {

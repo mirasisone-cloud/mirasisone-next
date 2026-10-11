@@ -57,6 +57,15 @@ const pageLayoutOverrides = `
   }
 `;
 
+/** ローカル画像を Next の画像最適化（自動リサイズ・webp 変換）経由で配信する */
+function optimizeImages(html: string) {
+  const url = (src: string, w: number) => `/_next/image?url=${encodeURIComponent(src)}&w=${w}&q=75`;
+  return html.replace(/<img([^>]*?)src="(\/[^"]+\.(?:png|jpe?g))"([^>]*?)>/gi, (tag, before, src, after) => {
+    if (/srcset=/i.test(tag)) return tag;
+    return `<img${before}src="${url(src, 1200)}" srcset="${url(src, 640)} 640w, ${url(src, 1200)} 1200w, ${url(src, 1920)} 1920w" sizes="(max-width: 768px) 100vw, 1200px"${after}>`;
+  });
+}
+
 function rewriteLinks(html: string, contactLinks = false) {
   let nextHtml = html
     .replaceAll("mirasisone-works-renewal.html#", "/#")
@@ -82,7 +91,7 @@ function rewriteLinks(html: string, contactLinks = false) {
 }
 
 export function StaticHtmlPage({ page, contactLinks = false, pageId }: StaticHtmlPageProps) {
-  const body = useMemo(() => rewriteLinks(page.body, contactLinks), [page.body, contactLinks]);
+  const body = useMemo(() => optimizeImages(rewriteLinks(page.body, contactLinks)), [page.body, contactLinks]);
   const rootRef = useRef<HTMLDivElement>(null);
   const initializedScripts = useRef(new WeakMap<Element, Set<string>>());
 

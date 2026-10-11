@@ -123,7 +123,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <h1>{post.title}</h1>
         <p className="wix-article-lead">{post.description}</p>
         <div className="wix-article-image">
-          <Image src={post.eyecatch} alt="" fill sizes="(max-width: 900px) 100vw, 860px" priority />
+          <Image src={post.eyecatch} alt={post.title} fill sizes="(max-width: 900px) 100vw, 860px" priority />
         </div>
         <div className="wix-article-body">
           {post.content.map((block, index) => {
@@ -210,7 +210,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               return (
                 <div className="wix-article-inline-image" key={index}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={imageSrc} alt={block.alt} />
+                  <img src={imageSrc.startsWith("/") ? `/_next/image?url=${encodeURIComponent(imageSrc)}&w=1200&q=75` : imageSrc} alt={block.alt} />
                 </div>
               );
             }

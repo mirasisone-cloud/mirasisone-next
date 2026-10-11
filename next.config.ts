@@ -10,6 +10,20 @@ const nextConfig: NextConfig = {
             { protocol: "https", hostname: "images.microcms-assets.io" },
                 ],
     },
+    // 最低限のセキュリティヘッダー。別サイトへの埋め込みや MIME 推測を防ぐ
+    async headers() {
+          return [
+            {
+                      source: "/:path*",
+                      headers: [
+                                { key: "X-Content-Type-Options", value: "nosniff" },
+                                { key: "X-Frame-Options", value: "SAMEORIGIN" },
+                                { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+                                { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(), interest-cohort=()" },
+                      ],
+            },
+                ];
+    },
     async redirects() {
           return [
             {

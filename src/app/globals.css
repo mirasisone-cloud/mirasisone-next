@@ -616,6 +616,12 @@ body {
   text-decoration: none;
 }
 
+/* 見出しタグで包んでも、これまでと同じ見た目にする */
+.wix-post-heading {
+  margin: 0;
+  font-weight: inherit;
+}
+
 .wix-post-title {
   max-width: 560px;
   margin-bottom: 16px;
@@ -1453,4 +1459,157 @@ body {
   border-radius: 999px;
   color: #263f86;
   font-size: 13px;
+}
+
+/* 404 ページ */
+.not-found-page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 120px 24px 160px;
+  text-align: center;
+}
+
+.not-found-code {
+  font: 600 56px/1 "Inter", sans-serif;
+  letter-spacing: 0.08em;
+  color: #9aa8bd;
+}
+
+.not-found-page h1 {
+  margin: 20px 0 16px;
+  font-size: clamp(22px, 4.6vw, 30px);
+  font-weight: 500;
+  color: #27364e;
+}
+
+.not-found-page p {
+  line-height: 1.95;
+  color: #536179;
+}
+
+.not-found-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px 20px;
+  margin-top: 36px;
+}
+
+.not-found-links a {
+  padding: 10px 20px;
+  border: 1px solid #cbd3df;
+  border-radius: 4px;
+  color: #27364e;
+  text-decoration: none;
+}
+
+/* ブログ・記事・404 の共通ヘッダー／フッター */
+.site-chrome-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
+  padding: 16px clamp(16px, 4vw, 48px);
+  border-bottom: 1px solid #e2e8f0;
+  background: #ffffffeb;
+  backdrop-filter: blur(8px);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.site-chrome-logo {
+  display: grid;
+  gap: 2px;
+  text-decoration: none;
+}
+
+.site-chrome-logo-mark {
+  font: 600 17px/1.2 "Inter", sans-serif;
+  letter-spacing: 0.12em;
+  color: #27364e;
+}
+
+.site-chrome-logo-sub {
+  font-size: 10px;
+  line-height: 1.5;
+  color: #6b7a99;
+}
+
+.site-chrome-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 18px;
+  font-size: 13px;
+}
+
+.site-chrome-nav a {
+  color: #3b4a63;
+  text-decoration: none;
+}
+
+.site-chrome-cta {
+  padding: 9px 18px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #7b6cf6, #4ecdc4);
+  color: #fff !important;
+  font-weight: 500;
+}
+
+.site-chrome-footer {
+  /* 余白を margin にすると、その部分だけ背景色が抜けて黒い帯になる */
+  margin-top: 0;
+  padding: 72px clamp(16px, 4vw, 48px) 40px;
+  border-top: 1px solid #e2e8f0;
+  background: #f7f9fc;
+}
+
+.site-chrome-footer-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  max-width: 1040px;
+  margin: 0 auto 32px;
+}
+
+.site-chrome-footer-cta p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.9;
+  color: #3b4a63;
+}
+
+.site-chrome-footer-cta a {
+  flex: none;
+  padding: 12px 26px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #7b6cf6, #4ecdc4);
+  color: #fff;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.site-chrome-footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 22px;
+  max-width: 1040px;
+  margin: 0 auto;
+  font-size: 13px;
+}
+
+.site-chrome-footer-nav a {
+  color: #4a5a76;
+  text-decoration: none;
+}
+
+.site-chrome-copy {
+  max-width: 1040px;
+  margin: 24px auto 0;
+  font: 400 11px/1.6 "Inter", sans-serif;
+  color: #8c99ad;
 }

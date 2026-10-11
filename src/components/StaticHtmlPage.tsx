@@ -79,6 +79,12 @@ function rewriteLinks(html: string, contactLinks = false) {
       return `<a href="/#${sections[label]}">${label}</a>`;
     });
 
+  // 会社概要・採用はどのページからも辿れなかったので、フッターに足す
+  nextHtml = nextHtml.replace(
+    /(<nav class="footer-simple-nav[^>]*>[\s\S]*?)(<\/nav>)/,
+    '$1<a href="/blog">TOPICS</a><a href="/company">COMPANY</a><a href="/recruit">RECRUIT</a>$2',
+  );
+
   if (contactLinks) {
     nextHtml = nextHtml
       .replaceAll('href="#contact"', 'href="/contact"')

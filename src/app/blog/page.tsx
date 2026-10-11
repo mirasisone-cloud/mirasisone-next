@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
 import { blogNavCategories, blogPosts } from "@/content/blog";
 import { appUrl } from "@/content/site";
 
@@ -36,7 +37,9 @@ export default async function BlogPage({ searchParams }: Props) {
       : blogPosts;
 
   return (
-    <main className="wix-blog-page" id="top">
+    <>
+      <SiteHeader />
+      <main className="wix-blog-page" id="top">
       <header className="wix-blog-head">
         <p className="wix-blog-kicker">TOPICS・NEWS</p>
         <h1>プロジェクションマッピング・空間演出のお役立ち記事</h1>
@@ -71,9 +74,6 @@ export default async function BlogPage({ searchParams }: Props) {
             <div className="wix-post-body">
               <div className="wix-post-topline">
                 <span>{post.publishedAt}</span>
-                <button type="button" aria-label="記事メニュー">
-                  ⋮
-                </button>
               </div>
               <Link
                   className="wix-post-category"
@@ -81,9 +81,12 @@ export default async function BlogPage({ searchParams }: Props) {
                 >
                 {post.category}
               </Link>
-              <Link className="wix-post-title" href={`/post/${encodeURIComponent(post.slug)}`}>
-                {post.title}
-              </Link>
+              {/* 記事名は見出しにする（検索エンジンと読み上げの手がかりになる） */}
+              <h2 className="wix-post-heading">
+                <Link className="wix-post-title" href={`/post/${encodeURIComponent(post.slug)}`}>
+                  {post.title}
+                </Link>
+              </h2>
               <p>{post.description}</p>
             </div>
           </article>
@@ -94,5 +97,7 @@ export default async function BlogPage({ searchParams }: Props) {
         ⌃
       </a>
     </main>
+      <SiteFooter />
+    </>
   );
 }

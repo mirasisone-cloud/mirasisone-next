@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
 import { notFound } from "next/navigation";
 import { blogPosts, getBlogPost } from "@/content/blog";
 import { appUrl, postCanonicalUrl, APP_ORIGIN } from "@/content/site";
@@ -106,7 +107,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   ];
 
   return (
-    <main className="wix-blog-page">
+    <>
+      <SiteHeader />
+      <main className="wix-blog-page">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -244,5 +247,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         ) : null}
       </article>
     </main>
+      <SiteFooter />
+    </>
   );
 }

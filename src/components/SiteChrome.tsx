@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 /**
@@ -7,9 +8,14 @@ import Link from "next/link";
 export function SiteHeader() {
   return (
     <header className="site-chrome-header">
+      {/* TOP と同じロゴ・同じ説明文にそろえる */}
       <Link className="site-chrome-logo" href="/">
-        <span className="site-chrome-logo-mark">MIRASISONE</span>
-        <span className="site-chrome-logo-sub">プロジェクションマッピング・3DCG映像制作｜東京</span>
+        <Image src="/mirasisone_rogo_ol.png" alt="MIRASISONE" width={480} height={362} priority />
+        <span className="site-chrome-logo-sub">
+          MIRASISONE｜プロジェクションマッピング・
+          <br />
+          3DCG動画制作｜AR・VR制作｜東京
+        </span>
       </Link>
       <nav className="site-chrome-nav" aria-label="サイト内の主なページ">
         <Link href="/works">実績・サービス</Link>

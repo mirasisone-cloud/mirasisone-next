@@ -86,15 +86,22 @@ function rewriteLinks(html: string, contactLinks = false) {
       return `<a href="/#${sections[label]}">${label}</a>`;
     });
 
-  // ヘッダーからも全ページへ行けるようにする（PCは記事と会社概要、スマホのメニューは採用も）
+  // 記事ページなどと同じ項目にそろえる（ページ内リンクだけの独自メニューをやめる）
+  const commonNav = [
+    ['/works', '実績・サービス'],
+    ['/blog', '記事'],
+    ['/company', '会社概要'],
+    ['/recruit', '採用'],
+  ];
+  const commonNavHtml = commonNav.map(([href, label]) => `<a href="${href}">${label}</a>`).join("");
   nextHtml = nextHtml
     .replace(
-      /(<a [^>]*class="nav-cta[^"]*"[^>]*>)/,
-      '<a href="/blog">TOPICS</a><a href="/company">COMPANY</a>$1',
+      /(<div class="nav-links">)[\s\S]*?(<a [^>]*class="nav-cta[^"]*"[^>]*>[\s\S]*?<\/a>\s*<\/div>)/,
+      `$1${commonNavHtml}$2`,
     )
     .replace(
-      /(<a [^>]*class="nav-drawer-cta[^"]*"[^>]*>)/,
-      '<a href="/blog">TOPICS</a><a href="/company">COMPANY</a><a href="/recruit">RECRUIT</a>$1',
+      /(<div class="nav-drawer"[^>]*>)[\s\S]*?(<a [^>]*class="nav-drawer-cta[^"]*"[^>]*>[\s\S]*?<\/a>\s*<\/div>)/,
+      `$1${commonNavHtml}$2`,
     );
 
   // 会社概要・採用はどのページからも辿れなかったので、フッターに足す

@@ -78,9 +78,9 @@ export default function CompanyPage() {
       <section className="legacy-section legacy-split-cards">
         <article>
           <p className="legacy-kicker">MISSION</p>
-          <h2>映像と空間で、体験価値を拡張する。</h2>
+          <h2>世界に一つだけの、ハッとするオアシスを創造する。</h2>
           <p>
-            光、映像、音、導線を一体で考え、来場者や顧客の記憶に残るシーンを創出します。
+            誰もが見たくなる場所を。光、映像、音、導線を一体で考え、来場者や顧客の記憶に残るシーンを創出します。
           </p>
         </article>
         <article>

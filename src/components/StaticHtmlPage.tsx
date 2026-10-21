@@ -87,7 +87,7 @@ function rewriteLinks(html: string, contactLinks = false) {
     });
 
   // 相対パスのままだと階層の深いURLで画像が見つからず、最適化も効かない
-  nextHtml = nextHtml.replaceAll('src="mirasisone_rogo_ol.png"', 'src="/mirasisone_rogo_ol.png"');
+  nextHtml = nextHtml.replace(/src="(?!https?:|\/|data:)([^"]+\.(?:png|jpe?g|webp|svg))"/gi, 'src="/$1"');
 
   // 記事ページなどと同じ項目にそろえる（ページ内リンクだけの独自メニューをやめる）
   const commonNav = [

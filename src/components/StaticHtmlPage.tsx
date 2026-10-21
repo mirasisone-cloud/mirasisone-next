@@ -86,6 +86,9 @@ function rewriteLinks(html: string, contactLinks = false) {
       return `<a href="/#${sections[label]}">${label}</a>`;
     });
 
+  // 相対パスのままだと階層の深いURLで画像が見つからず、最適化も効かない
+  nextHtml = nextHtml.replaceAll('src="mirasisone_rogo_ol.png"', 'src="/mirasisone_rogo_ol.png"');
+
   // 記事ページなどと同じ項目にそろえる（ページ内リンクだけの独自メニューをやめる）
   const commonNav = [
     ['/works', '実績・サービス'],

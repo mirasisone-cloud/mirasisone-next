@@ -15,14 +15,13 @@ type ContactPayload = {
   company_website?: string;
 };
 
+// 2026-10-29: 初回の問い合わせで必須9項目は重く、離脱の主因と判断したため
+// overview / name / email の3つ（＋別途検証している privacy）だけを必須にした。
+// 画面側（src/content/contact.ts）の required とバッジ表記も同じ内容に合わせてある。
+// 片方だけ変えると、画面では送れてもここで400になるので必ず両方そろえること。
 const requiredFields: Array<keyof ContactPayload> = [
-  "consultation",
   "overview",
-  "status",
-  "schedule",
-  "budget",
   "name",
-  "kana",
   "email",
 ];
 
@@ -46,6 +45,11 @@ const MAX_FIELD_LENGTH = 5000;
 
 function value(payload: ContactPayload, key: keyof ContactPayload) {
   return String(payload[key] ?? "").trim();
+}
+
+/** 任意項目が空のとき、通知メールの欄が空白にならないようにする表示用 */
+function display(payload: ContactPayload, key: keyof ContactPayload) {
+  return value(payload, key) || "未記入";
 }
 
 function escapeHtml(text: string) {
@@ -83,14 +87,14 @@ function isRateLimited(ip: string) {
 
 function buildMessage(payload: ContactPayload) {
   const rows = [
-    ["ご相談内容", value(payload, "consultation")],
+    ["ご相談内容", display(payload, "consultation")],
     ["プロジェクト概要", value(payload, "overview")],
-    ["ご相談ステータス", value(payload, "status")],
-    ["実施予定時期", value(payload, "schedule")],
-    ["ご予算", value(payload, "budget")],
+    ["ご相談ステータス", display(payload, "status")],
+    ["実施予定時期", display(payload, "schedule")],
+    ["ご予算", display(payload, "budget")],
     ["実施場所", value(payload, "location") || "未入力"],
     ["お名前", value(payload, "name")],
-    ["ふりがな", value(payload, "kana")],
+    ["ふりがな", display(payload, "kana")],
     ["メールアドレス", value(payload, "email")],
   ];
 
@@ -123,9 +127,9 @@ function buildAutoReply(payload: ContactPayload) {
 以下の内容で承りました。内容を確認のうえ、2営業日以内に担当者よりご連絡いたします。
 
 ──────────────────
-ご相談内容: ${value(payload, "consultation")}
-実施予定時期: ${value(payload, "schedule")}
-ご予算: ${value(payload, "budget")}
+ご相談内容: ${display(payload, "consultation")}
+実施予定時期: ${display(payload, "schedule")}
+ご予算: ${display(payload, "budget")}
 実施場所: ${value(payload, "location") || "未入力"}
 
 プロジェクト概要:
@@ -144,9 +148,9 @@ ${FALLBACK_TO_EMAIL}
     <p>このたびはMIRASISONEへお問い合わせいただき、誠にありがとうございます。<br>
     以下の内容で承りました。内容を確認のうえ、2営業日以内に担当者よりご連絡いたします。</p>
     <table cellpadding="8" cellspacing="0" style="border-collapse:collapse;width:100%;max-width:640px">
-      <tr><th align="left" style="border:1px solid #d7e3ec;background:#f6fbff;width:150px">ご相談内容</th><td style="border:1px solid #d7e3ec">${escapeHtml(value(payload, "consultation"))}</td></tr>
-      <tr><th align="left" style="border:1px solid #d7e3ec;background:#f6fbff">実施予定時期</th><td style="border:1px solid #d7e3ec">${escapeHtml(value(payload, "schedule"))}</td></tr>
-      <tr><th align="left" style="border:1px solid #d7e3ec;background:#f6fbff">ご予算</th><td style="border:1px solid #d7e3ec">${escapeHtml(value(payload, "budget"))}</td></tr>
+      <tr><th align="left" style="border:1px solid #d7e3ec;background:#f6fbff;width:150px">ご相談内容</th><td style="border:1px solid #d7e3ec">${escapeHtml(display(payload, "consultation"))}</td></tr>
+      <tr><th align="left" style="border:1px solid #d7e3ec;background:#f6fbff">実施予定時期</th><td style="border:1px solid #d7e3ec">${escapeHtml(display(payload, "schedule"))}</td></tr>
+      <tr><th align="left" style="border:1px solid #d7e3ec;background:#f6fbff">ご予算</th><td style="border:1px solid #d7e3ec">${escapeHtml(display(payload, "budget"))}</td></tr>
       <tr><th align="left" style="border:1px solid #d7e3ec;background:#f6fbff">実施場所</th><td style="border:1px solid #d7e3ec">${escapeHtml(value(payload, "location") || "未入力")}</td></tr>
       <tr><th align="left" style="border:1px solid #d7e3ec;background:#f6fbff">プロジェクト概要</th><td style="border:1px solid #d7e3ec;white-space:pre-wrap">${escapeHtml(value(payload, "overview"))}</td></tr>
     </table>

@@ -11,7 +11,7 @@ import { refineHomeContent, homeRefinementStyles } from "@/content/home-refineme
 import { HomeAnchorRecovery } from "@/components/HomeAnchorRecovery";
 import { HomeMotion } from "@/components/HomeMotion";
 import { homeMediaStyles } from "@/content/home-media-styles";
-import { compactHomeContent, homeMobileStyles } from "@/content/home-mobile";
+import { compactHomeContent, homeMobileStyles, withMobileCtaBar } from "@/content/home-mobile";
 import { homeWorksMarkup, homeWorksStyles } from "@/content/home-works";
 
 const TOP_TITLE = "プロジェクションマッピング・空間演出の企画制作｜MIRASISONE（東京）";
@@ -109,10 +109,10 @@ function withOriginalStory(body: string) {
 
 export default function HomePage() {
   // StaticHtmlPage は表示後に document.title を page.title で上書きするため、metadata と同じタイトルを渡す
-  const body = compactHomeContent(refineHomeContent(withOriginalStory(withLatestNews(topPage.body)).replace(
+  const body = withMobileCtaBar(compactHomeContent(refineHomeContent(withOriginalStory(withLatestNews(topPage.body)).replace(
     /<section class="wwd-section"[\s\S]*?<\/section>/,
     homeServicesMarkup,
-  ))).replace(/<section class="testimonials-section">[\s\S]*?<\/section>/, "")
+  )))).replace(/<section class="testimonials-section">[\s\S]*?<\/section>/, "")
     .replace(/<section id="venues" class="works-section">[\s\S]*?<\/section>/, homeWorksMarkup);
   // Preserve phrase boundaries instead of letting the imported copy script flatten the titles.
   const scriptTags = topPage.scriptTags?.map(script => ({

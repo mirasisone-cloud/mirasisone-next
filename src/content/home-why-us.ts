@@ -8,8 +8,8 @@ const reasons = [
     issue: "足を運ぶ理由が、見つからない。",
     title: "訪れたくなる、<br>理由をつくる。",
     copy: "その場所でしか味わえない体験を、企画から。食事や買い物の時間に新しい楽しみを重ね、空間そのものを訪れるきっかけにします。",
-    image: "/images/works/omusako.webp",
-    alt: "ドーム型の天井一面に魚の映像を投影した店内",
+    image: "/images/works/oekaki.webp",
+    alt: "壁一面に桜と花火の映像を投影した空間で、来場者が腰を下ろして眺めている様子",
   },
   {
     en: "EMOTION",

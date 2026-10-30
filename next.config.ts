@@ -41,6 +41,38 @@ const nextConfig: NextConfig = {
                       destination: "/privacy-policy",
                       permanent: true,
             },
+            // 旧広告のリンク先。アクセスはあるのに 404 だった
+            {
+                      source: "/privacy",
+                      destination: "/privacy-policy",
+                      permanent: true,
+            },
+            {
+                      source: "/corporate",
+                      destination: "/company",
+                      permanent: true,
+            },
+            // よくある綴りで来たときに 404 にしない
+            ...["/about", "/kaisha", "/outline", "/company-profile"].map((source) => ({
+                      source,
+                      destination: "/company",
+                      permanent: true,
+            })),
+            ...["/inquiry", "/contact-us"].map((source) => ({
+                      source,
+                      destination: "/contact",
+                      permanent: true,
+            })),
+            {
+                      source: "/news",
+                      destination: "/blog",
+                      permanent: true,
+            },
+            {
+                      source: "/service",
+                      destination: "/works",
+                      permanent: true,
+            },
                 ];
     },
 };

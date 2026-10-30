@@ -37,8 +37,16 @@ export function compactHomeContent(body: string) {
     .replace(/<details open>/g, '<details>');
 }
 
+/**
+ * スマホはヘッダーのCTAが隠れ、最初のボタンが1.5画面先にある。常時表示の相談ボタンを足す。
+ * フッターより後ろに置くと top.ts のスクリプトが ms-after-footer-hidden で消すので先頭に入れる。
+ */
+export function withMobileCtaBar(body: string) {
+  return '<div class="mobile-cta-bar"><a href="/contact">無料で相談する</a></div>' + body;
+}
+
 export const homeMobileStyles = String.raw`
-body #home-page :is(.mobile-flow,.mobile-contact-label) { display: none; }
+body #home-page :is(.mobile-flow,.mobile-contact-label,.mobile-cta-bar) { display: none; }
 body #home-page #services .svc-new-h2 { max-width: 100% !important; width: 100% !important; }
 body #home-page #services .service-title-phrase { display: inline-block; white-space: nowrap; color: inherit !important; -webkit-text-fill-color: currentColor !important; }
 body #home-page .company-disclosure { margin-top: 32px; border-block: 1px solid #cbd4df; }
@@ -115,6 +123,20 @@ body #home-page .company-disclosure .about-info-title { display: none; }
   body #home-page :is(.contact-cta-en,.contact-cta-title) { display: none !important; }
   body #home-page .contact-cta-card { padding: 24px 20px !important; min-height: 0 !important; }
   body #home-page .mobile-contact-label { display: block; color: #304b60 !important; font-size: 14px !important; font-weight: 600; }
+  body #home-page { padding-bottom: 78px !important; }
+  body #home-page .mobile-cta-bar {
+    display: block !important;
+    position: fixed; inset: auto 0 0; z-index: 95;
+    padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+    background: rgba(255,255,255,.94); backdrop-filter: blur(8px);
+    border-top: 1px solid #d0d9e2;
+  }
+  body #home-page .mobile-cta-bar a {
+    display: flex; align-items: center; justify-content: center;
+    min-height: 48px; border-radius: 100px; text-decoration: none;
+    background: var(--purple); color: #fff !important; -webkit-text-fill-color: #fff !important;
+    font: 600 15px/1.4 'Noto Sans JP', sans-serif; letter-spacing: .04em;
+  }
 }
 @media (max-width:360px) {
   body #home-page #services .svc-new-card { grid-template-columns: 72px minmax(0,1fr) !important; gap: 12px !important; }

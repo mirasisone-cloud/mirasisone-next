@@ -19,6 +19,7 @@ export function SiteHeader() {
       </Link>
       <nav className="site-chrome-nav" aria-label="サイト内の主なページ">
         <Link href="/works">実績・サービス</Link>
+        <Link href="/price">費用</Link>
         <Link href="/blog">記事</Link>
         <Link href="/company">会社概要</Link>
         <Link href="/recruit">採用</Link>
@@ -40,6 +41,7 @@ export function SiteFooter() {
       <nav className="site-chrome-footer-nav" aria-label="フッターのリンク">
         <Link href="/">トップ</Link>
         <Link href="/works">実績・サービス</Link>
+        <Link href="/price">費用の目安</Link>
         <Link href="/blog">記事一覧</Link>
         <Link href="/company">会社概要</Link>
         <Link href="/recruit">採用情報</Link>

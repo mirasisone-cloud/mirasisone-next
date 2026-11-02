@@ -23,6 +23,13 @@ export const seoUrlInventory = [
   },
   {
     "type": "pages",
+    "oldPath": "/price",
+    "path": "/price",
+    "action": "keep-200",
+    "lastmod": "2026-11-02"
+  },
+  {
+    "type": "pages",
     "oldPath": "/privacy-policy",
     "path": "/privacy-policy",
     "action": "keep-200",

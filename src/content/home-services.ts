@@ -48,10 +48,20 @@ export const homeServicesMarkup = `
         <span class="service-overview-more">詳しく見る<span class="service-overview-arrow" aria-hidden="true">↗</span></span>
       </a>`).join("")}
     </div>
+    <p class="service-overview-foot">
+      <a href="/price">費用の目安を見る<span class="service-overview-arrow" aria-hidden="true">↗</span></a>
+      <span class="service-overview-foot-note">屋内200万円〜／屋外500万円〜。規模別の目安と、費用を左右する変数を掲載しています。</span>
+    </p>
   </div>
 </section>`;
 
 export const homeServicesStyles = String.raw`
+/* 2026-11-02: 費用を調べて来た人向けの導線。サービス一覧の直下に置く */
+.service-overview-foot { margin: 28px 0 0; display: flex; flex-direction: column; gap: 6px; align-items: center; text-align: center; }
+.service-overview-foot a { display: inline-flex; align-items: center; gap: 6px; font-size: 15px; font-weight: 700; letter-spacing: .02em; border-bottom: 1px solid currentColor; padding-bottom: 2px; }
+.service-overview-foot-note { font-size: 13px; line-height: 1.9; opacity: .72; max-width: 46ch; }
+@media (max-width: 760px) { .service-overview-foot-note { font-size: 12px; } }
+
 body #home-page #what-we-do { position: relative; isolation: isolate; overflow: hidden; padding: 96px 0 104px; background: radial-gradient(ellipse at 90% 12%, #cde8ec 0, transparent 56%), linear-gradient(135deg, #f8f5fc, #f1f6fa 58%, #edf7f5); }
 /* A quiet projection scene adds depth behind the heading without competing with the copy. */
 body #home-page #what-we-do::before {

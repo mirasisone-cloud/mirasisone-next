@@ -1549,3 +1549,110 @@ body {
   font: 400 11px/1.6 "Inter", sans-serif;
   color: #8c99ad;
 }
+
+/* ===== /price 費用の目安（2026-11-02 追加） =====
+   費用を調べて来た人が着地するページ。既存の legacy-* の見た目に合わせている。 */
+.price-section-lead {
+  margin: 14px 0 0;
+  max-width: 70ch;
+  color: #687592;
+  font-size: 15px;
+  line-height: 2;
+}
+
+.price-grid {
+  margin-top: 28px;
+  /* カードの高さをそろえる。含まれる項目数が違っても下端が合うようにする */
+  align-items: stretch;
+}
+
+.price-grid article {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.price-amount {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin: 8px 0 2px;
+  color: #17182c;
+}
+
+.price-amount strong {
+  font-family: "Oswald", "Noto Sans JP", sans-serif;
+  font-size: clamp(38px, 5vw, 52px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.01em;
+}
+
+.price-amount span {
+  font-size: 15px;
+  font-weight: 500;
+  color: #253058;
+}
+
+.price-fits {
+  margin: 0 0 18px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #e4eaf3;
+  color: #687592;
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+.price-label {
+  margin: 12px 0 6px;
+  color: #253058;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.price-list {
+  margin: 0;
+  padding-left: 1.15em;
+  color: #253058;
+  font-size: 14px;
+  line-height: 2;
+}
+
+.price-list-excluded {
+  color: #8893aa;
+}
+
+.price-variables,
+.price-notes {
+  margin-top: 24px;
+  max-width: 70ch;
+  font-size: 15px;
+}
+
+.price-cta {
+  text-align: center;
+}
+
+.price-cta p {
+  margin: 14px auto 26px;
+  max-width: 62ch;
+  color: #687592;
+  font-size: 15px;
+  line-height: 2;
+}
+
+/* ボタンに下線が出ないようにする（legacy 側の a に下線が付くため） */
+.price-cta a {
+  text-decoration: none;
+}
+
+@media (max-width: 760px) {
+  .price-amount strong {
+    font-size: 40px;
+  }
+
+  .price-grid article {
+    padding: 24px;
+  }
+}

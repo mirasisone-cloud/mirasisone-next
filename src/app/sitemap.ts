@@ -6,6 +6,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const pages: MetadataRoute.Sitemap = [
     { url: appUrl("/"), changeFrequency: "weekly", priority: 1 },
     { url: appUrl("/works"), changeFrequency: "monthly", priority: 0.9 },
+    { url: appUrl("/price"), changeFrequency: "monthly", priority: 0.9 },
     { url: appUrl("/company"), changeFrequency: "yearly", priority: 0.7 },
     { url: appUrl("/recruit"), changeFrequency: "monthly", priority: 0.6 },
     { url: appUrl("/privacy-policy"), changeFrequency: "yearly", priority: 0.3 },

@@ -3,6 +3,7 @@ import Script from "next/script";
 import "./globals.css";
 import { APP_ORIGIN } from "@/content/site";
 import { jsonLdScript, organizationJsonLd, websiteJsonLd } from "@/content/structured-data";
+import AdAttribution from "@/components/AdAttribution";
 
 export const metadata: Metadata = {
   metadataBase: new URL(APP_ORIGIN),
@@ -41,6 +42,8 @@ export default function RootLayout({
         {/* 会社情報とサイト情報。検索結果での表示に使われる */}
         <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdScript(organizationJsonLd)} />
         <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdScript(websiteJsonLd)} />
+        {/* 着地時の広告パラメータを拾う。問い合わせの流入元判別に使う */}
+        <AdAttribution />
         {children}
         <Script src="https://unpkg.com/@phosphor-icons/web" strategy="afterInteractive" />
 

@@ -11,6 +11,11 @@ type ContactPayload = {
   kana?: string;
   email?: string;
   privacy?: string;
+  /**
+   * 着地時に拾った流入元を1行にしたもの（src/components/AdAttribution.tsx が作る）。
+   * 画面の入力項目ではないため必須判定にも入れない。通知メールにだけ載せる。
+   */
+  attribution?: string;
   /** ハニーポット。人間には見えない項目なので、埋まっていればボット */
   company_website?: string;
 };
@@ -85,7 +90,25 @@ function isRateLimited(ip: string) {
   return history.length > RATE_LIMIT_MAX;
 }
 
+/**
+ * 稼働中のキャンペーンID。通知メールで「どのキャンペーン由来か」をその場で読めるようにする。
+ * ここに無いIDはそのまま数字で表示する（新しいキャンペーンを作っても壊れない）。
+ */
+const CAMPAIGN_NAMES: Record<string, string> = {
+  "23907107518": "プロジェクションマッピング_検索（主力）",
+  "24247049403": "屋内_プロジェクションマッピング_検索",
+};
+
+/** 流入元の文字列に含まれるキャンペーンIDを、読める名前に置き換える */
+function withCampaignName(attribution: string) {
+  return attribution.replace(/キャンペーンID (\d+)/, (whole, id: string) => {
+    const name = CAMPAIGN_NAMES[id];
+    return name ? `キャンペーン ${name}（${id}）` : whole;
+  });
+}
+
 function buildMessage(payload: ContactPayload) {
+  const attribution = value(payload, "attribution");
   const rows = [
     ["ご相談内容", display(payload, "consultation")],
     ["プロジェクト概要", value(payload, "overview")],
@@ -96,6 +119,8 @@ function buildMessage(payload: ContactPayload) {
     ["お名前", value(payload, "name")],
     ["ふりがな", display(payload, "kana")],
     ["メールアドレス", value(payload, "email")],
+    // 2026-11-02 追加。広告由来かどうかを後から追いかけられるようにする
+    ["流入元", attribution ? withCampaignName(attribution) : "記録なし"],
   ];
 
   const text = rows.map(([label, rowValue]) => `${label}: ${rowValue}`).join("\n");

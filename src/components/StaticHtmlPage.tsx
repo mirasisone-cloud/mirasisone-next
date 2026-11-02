@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef } from "react";
+import { formatAdAttribution, readAdAttribution } from "@/components/AdAttribution";
 
 type StaticPageData = {
   readonly title: string;
@@ -216,7 +217,16 @@ export function StaticHtmlPage({ page, contactLinks = false, pageId }: StaticHtm
         const feedback = form.querySelector<HTMLElement>(".contact-feedback");
         const originalContent = button?.innerHTML ?? "送信する";
         const formData = new FormData(form);
-        const payload = Object.fromEntries(formData.entries());
+        const payload: Record<string, unknown> = Object.fromEntries(formData.entries());
+
+        // 流入元を添付する。着地時に拾ったものがあれば通知メールに載る。
+        // 失敗しても問い合わせ自体は止めない（この行で throw させない）。
+        try {
+          const attribution = readAdAttribution();
+          if (attribution) payload.attribution = formatAdAttribution(attribution);
+        } catch {
+          // 読めなければ添付しないだけ
+        }
         submitting.add(form);
         form.setAttribute("aria-busy", "true");
         if (feedback) { feedback.hidden = true; feedback.textContent = ""; }

@@ -68,9 +68,23 @@ const pageLayoutOverrides = `
 /** ローカル画像を Next の画像最適化（自動リサイズ・webp 変換）経由で配信する */
 function optimizeImages(html: string) {
   const url = (src: string, w: number) => `/_next/image?url=${encodeURIComponent(src)}&w=${w}&q=75`;
-  return html.replace(/<img([^>]*?)src="(\/[^"]+\.(?:png|jpe?g))"([^>]*?)>/gi, (tag, before, src, after) => {
+  return html.replace(/<img([^>]*?)src="(\/[^"]+\.(?:png|jpe?g|webp))"([^>]*?)>/gi, (tag, before, src, after) => {
     if (/srcset=/i.test(tag)) return tag;
     return `<img${before}src="${url(src, 1200)}" srcset="${url(src, 640)} 640w, ${url(src, 1200)} 1200w, ${url(src, 1920)} 1920w" sizes="(max-width: 768px) 100vw, 1200px"${after}>`;
+  });
+}
+
+/**
+ * 画面に入るまで画像を読まない。
+ * 読み込み直後は全部の画像を取りに行っていて、下のほうの画像が最初の表示の帯域を奪っていた。
+ * 先頭の数枚は最初の画面に出るので、そのまま先に読む。
+ */
+function lazyLoadImages(html: string, eagerCount = 2) {
+  let seen = 0;
+  return html.replace(/<img([^>]*)>/gi, (tag, attrs: string) => {
+    seen += 1;
+    if (seen <= eagerCount || /loading\s*=/i.test(attrs)) return tag;
+    return `<img${attrs.replace(/\/\s*$/, "")} loading="lazy" decoding="async">`;
   });
 }
 
@@ -126,7 +140,7 @@ function rewriteLinks(html: string, contactLinks = false) {
 }
 
 export function StaticHtmlPage({ page, contactLinks = false, pageId }: StaticHtmlPageProps) {
-  const body = useMemo(() => optimizeImages(rewriteLinks(page.body, contactLinks)), [page.body, contactLinks]);
+  const body = useMemo(() => lazyLoadImages(optimizeImages(rewriteLinks(page.body, contactLinks))), [page.body, contactLinks]);
   const rootRef = useRef<HTMLDivElement>(null);
   const initializedScripts = useRef(new WeakMap<Element, Set<string>>());
 

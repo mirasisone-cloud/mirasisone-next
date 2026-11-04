@@ -127,6 +127,11 @@ export default function HomePage() {
   const page = { ...topPage, title: TOP_TITLE, style: topPage.style + homeLayoutStyles + homeServicesStyles + homeRefinementStyles + homeMobileStyles + homeMediaStyles + homeWorksStyles, body, scriptTags };
   return (
     <>
+      {/*
+        最初の画面で一番大きく出るのはヒーローのポスター画像で、ここが表示速度の判定対象になる。
+        他の読み込みに埋もれないよう先に取りにいく。
+      */}
+      <link rel="preload" as="image" href="/top-hero-pm-poster.webp" fetchPriority="high" />
       {/* TOP の FAQ セクションと同じ内容。検索結果に Q&A が出ることがある */}
       <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdScript(faqJsonLd)} />
       <HomeIntro />

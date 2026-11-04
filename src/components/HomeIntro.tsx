@@ -66,13 +66,48 @@ export function HomeIntro() {
     };
   }, []);
 
+  // 動画を最初の描画と競わせない。読み込みが落ち着いてから取りに行き、それまではポスター画像を見せる
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    let cancelled = false;
+    const start = () => {
+      if (cancelled || !videoRef.current) return;
+      // 狭い画面には再生できる source を置いていないので、読み込み自体を起こさない
+      if (!window.matchMedia("(min-width: 1024px)").matches) return;
+      videoRef.current.preload = "auto";
+      videoRef.current.load();
+      void videoRef.current.play().catch(() => {});
+    };
+    const schedule = () => {
+      if (cancelled) return;
+      const idle = window.requestIdleCallback;
+      if (idle) idle(start, { timeout: 2000 });
+      else window.setTimeout(start, 300);
+    };
+    if (document.readyState === "complete") schedule();
+    else window.addEventListener("load", schedule, { once: true });
+    return () => {
+      cancelled = true;
+      window.removeEventListener("load", schedule);
+    };
+  }, []);
+
   return (
     <>
       <section id="home-intro" ref={rootRef} data-motion="on" aria-label="MIRASISONEの空間演出">
         <div className="film-stage" ref={stageRef}>
           <div className="film-media">
-            <video ref={videoRef} className="film-video" width={1280} height={720} autoPlay muted loop playsInline poster="/top-hero-pm-poster.webp" aria-label="テーブルへのプロジェクションマッピング事例">
-              <source src="/top-hero-pm.mp4" type="video/mp4" />
+            <video ref={videoRef} className="film-video" width={2560} height={1440} muted loop playsInline preload="none" poster="/top-hero-pm-poster.webp" aria-label="テーブルへのプロジェクションマッピング事例">
+              {/*
+                スマホ向けの source は置いていない。狭い画面ではポスター画像だけを見せて、
+                動画(2.3MB)を読まない。広告の流入はほぼスマホで、ページの重さの3分の1が
+                この動画だったため。再生したくなったら top-hero-pm-720.webm / .mp4 を
+                media 無しの source として足せば戻せる。
+                PCは webm(VP9) を優先。同じ画質で mp4 の半分に収まる。
+              */}
+              <source media="(min-width: 1024px)" src="/top-hero-pm-1440.webm" type="video/webm" />
+              <source media="(min-width: 1024px)" src="/top-hero-pm.mp4" type="video/mp4" />
             </video>
             <div className="film-shade" aria-hidden="true" />
           </div>

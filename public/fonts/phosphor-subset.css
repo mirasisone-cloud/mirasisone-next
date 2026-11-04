@@ -1,0 +1,42 @@
+/* 使用しているアイコンだけを収録した自前ホストの Phosphor。元は CDN から全アイコン(各約140KB)を読んでいた */
+@font-face{font-family:"Phosphor";src:url("/fonts/phosphor-regular.woff2") format("woff2");font-weight:400;font-style:normal;font-display:block}
+.ph{font-family:"Phosphor" !important;speak:none;font-style:normal;font-weight:400;font-variant:normal;text-transform:none;line-height:1;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;display:inline-block}
+.ph.ph-arrow-right:before,.ph.ph-bank:before,.ph.ph-buildings:before,.ph.ph-chart-line-up:before,.ph.ph-cube:before,.ph.ph-envelope-simple:before,.ph.ph-hand-tap:before,.ph.ph-heart:before,.ph.ph-hospital:before,.ph.ph-lightbulb:before,.ph.ph-projector-screen:before,.ph.ph-share-network:before,.ph.ph-sparkle:before,.ph.ph-star:before,.ph.ph-trend-up:before,.ph.ph-users-three:before,.ph.ph-virtual-reality:before{}
+.ph.ph-arrow-right:before{content:"\e06c"}
+.ph.ph-bank:before{content:"\e0b4"}
+.ph.ph-buildings:before{content:"\e102"}
+.ph.ph-chart-line-up:before{content:"\e156"}
+.ph.ph-cube:before{content:"\e1da"}
+.ph.ph-envelope-simple:before{content:"\e218"}
+.ph.ph-hand-tap:before{content:"\ec90"}
+.ph.ph-heart:before{content:"\e2a8"}
+.ph.ph-hospital:before{content:"\e844"}
+.ph.ph-lightbulb:before{content:"\e2dc"}
+.ph.ph-projector-screen:before{content:"\e658"}
+.ph.ph-share-network:before{content:"\e408"}
+.ph.ph-sparkle:before{content:"\e6a2"}
+.ph.ph-star:before{content:"\e46a"}
+.ph.ph-trend-up:before{content:"\e4ae"}
+.ph.ph-users-three:before{content:"\e68e"}
+.ph.ph-virtual-reality:before{content:"\e7b8"}
+@font-face{font-family:"Phosphor-Bold";src:url("/fonts/phosphor-bold.woff2") format("woff2");font-weight:400;font-style:normal;font-display:block}
+.ph-bold{font-family:"Phosphor-Bold" !important;speak:none;font-style:normal;font-weight:400;font-variant:normal;text-transform:none;line-height:1;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;display:inline-block}
+.ph-bold.ph-caret-down:before,.ph-bold.ph-check:before{}
+.ph-bold.ph-caret-down:before{content:"\e136"}
+.ph-bold.ph-check:before{content:"\e182"}
+@font-face{font-family:"Phosphor-Fill";src:url("/fonts/phosphor-fill.woff2") format("woff2");font-weight:400;font-style:normal;font-display:block}
+.ph-fill{font-family:"Phosphor-Fill" !important;speak:none;font-style:normal;font-weight:400;font-variant:normal;text-transform:none;line-height:1;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;display:inline-block}
+.ph-fill.ph-calendar-check:before,.ph-fill.ph-chat-circle-dots:before,.ph-fill.ph-chat-circle-text:before,.ph-fill.ph-envelope-simple:before,.ph-fill.ph-film-slate:before,.ph-fill.ph-lightbulb:before,.ph-fill.ph-map-pin:before,.ph-fill.ph-note-pencil:before,.ph-fill.ph-pause:before,.ph-fill.ph-pencil-ruler:before,.ph-fill.ph-play:before,.ph-fill.ph-projector-screen:before,.ph-fill.ph-wrench:before{}
+.ph-fill.ph-calendar-check:before{content:"\e712"}
+.ph-fill.ph-chat-circle-dots:before{content:"\e16c"}
+.ph-fill.ph-chat-circle-text:before{content:"\e16e"}
+.ph-fill.ph-envelope-simple:before{content:"\e218"}
+.ph-fill.ph-film-slate:before{content:"\e8c2"}
+.ph-fill.ph-lightbulb:before{content:"\e2dc"}
+.ph-fill.ph-map-pin:before{content:"\e316"}
+.ph-fill.ph-note-pencil:before{content:"\e34c"}
+.ph-fill.ph-pause:before{content:"\e39e"}
+.ph-fill.ph-pencil-ruler:before{content:"\e906"}
+.ph-fill.ph-play:before{content:"\e3d0"}
+.ph-fill.ph-projector-screen:before{content:"\e658"}
+.ph-fill.ph-wrench:before{content:"\e5d4"}

@@ -5,9 +5,6 @@ export const topPage = {
   "scripts": [],
   "scriptTags": [
     {
-      "src": "https://unpkg.com/@phosphor-icons/web"
-    },
-    {
       "src": "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"
     },
     {

@@ -63,6 +63,13 @@ const nextConfig: NextConfig = {
                       destination: "/contact",
                       permanent: true,
             })),
+            // 削除済みの旧記事。Search Console が 404 を検出していた（2026-11-01 以降、12日間）。
+            // 内容が最も近い費用ガイドへ恒久リダイレクトする。
+            {
+                      source: "/post/immersive-space-production-cost-guide",
+                      destination: "/post/projection-mapping-cost-guide",
+                      permanent: true,
+            },
             {
                       source: "/news",
                       destination: "/blog",

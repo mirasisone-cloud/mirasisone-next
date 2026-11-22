@@ -70,6 +70,12 @@ const nextConfig: NextConfig = {
                       destination: "/post/projection-mapping-cost-guide",
                       permanent: true,
             },
+                          // 削除済みの旧記事。新しいURLで再公開した（2026-11-22）
+            {
+                      source: "/post/corporate-pr-video-3dcg-cost-guide",
+                      destination: "/post/corporate-pr-video-3dcg-guide",
+                      permanent: true,
+            },
             {
                       source: "/news",
                       destination: "/blog",

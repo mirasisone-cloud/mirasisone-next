@@ -63,13 +63,14 @@
     "height": 360
   },
   {
-    "title": "Lamborghini-USA",
+    "title": "Lamborghini Concept movie",
     "category": "3DCG",
-    "alt": "オレンジ色のランボルギーニが走るCG映像の一場面",
+    "alt": "オレンジ色のスーパーカーが走るコンセプトムービーの一場面",
     "image": "/images/works/lamborghini.webp",
     "href": "https://www.foriio.com/Mirasisone2022/wk_AVd0rfh9YZoIuDjJo5yyW6byZPZYyCmvXoAh4lWlYfMsLEe1wQ",
     "width": 960,
-    "height": 540
+    "height": 540,
+    "note": "＊Not affiliated with Automobile Lamborghini"
   },
   {
     "title": "BADHOP",

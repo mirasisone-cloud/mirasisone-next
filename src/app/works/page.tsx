@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import { StaticHtmlPage } from "@/components/StaticHtmlPage";
 import { worksPage } from "@/content/works";
+import { withWorkLinks, workLinkStyles } from "@/content/works-links";
 import { jsonLdScript, servicesJsonLd } from "@/content/structured-data";
+
+// 実績カードから映像のページへ飛べるようにする（2026-11-25。理由は works-links.ts に書いた）
+const page = { ...worksPage, body: withWorkLinks(worksPage.body), style: worksPage.style + workLinkStyles };
 
 export const metadata: Metadata = {
   title: "制作実績・サービス｜プロジェクションマッピング / 3DCG",
@@ -23,7 +27,7 @@ export default function WorksPage() {
     <>
       {/* 提供サービスの一覧 */}
       <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdScript(servicesJsonLd)} />
-      <StaticHtmlPage page={worksPage} contactLinks />
+      <StaticHtmlPage page={page} contactLinks />
     </>
   );
 }

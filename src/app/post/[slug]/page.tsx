@@ -14,6 +14,27 @@ type BlogPostPageProps = {
 
 export const dynamicParams = true;
 
+/**
+ * 記事は blog-posts-data.json に全件あるので、slug をビルド時に列挙して静的生成する。
+ * これが無いと全記事が初回アクセス時のオンデマンド生成になり、
+ * ISR Reads と Function Invocations、Fast Origin Transfer が記事数ぶん増える。
+ * dynamicParams は true のまま残すので、ここで外した slug も JSON に後から足した slug も
+ * 従来どおりオンデマンドで表示される。
+ *
+ * ただし Wix 時代の slug に日本語の長い一文がそのまま残っているものがあり、
+ * 静的生成は slug をそのままディレクトリ名に使うため、UTF-8 で 255 バイトを超えると
+ * ENAMETOOLONG でビルドごと落ちる（2026-11-25 に実測。1件が 270 バイトだった）。
+ * 安全側に 200 バイトで線を引き、超えるものはビルド対象から外す。
+ */
+const STATIC_PARAM_SLUG_MAX_BYTES = 200;
+
+export function generateStaticParams() {
+  const encoder = new TextEncoder();
+  return blogPosts
+    .filter((post) => encoder.encode(post.slug).length <= STATIC_PARAM_SLUG_MAX_BYTES)
+    .map((post) => ({ slug: post.slug }));
+}
+
 /** youtu.be/ID・watch?v=ID・/embed/ID・/shorts/ID のいずれからも動画IDを取り出す */
 function extractYouTubeId(url: string | undefined) {
   if (!url) return null;
